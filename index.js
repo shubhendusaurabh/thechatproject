@@ -21,6 +21,7 @@ app.set('view engine', 'jade');
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(morgan('combined'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(methodOverride());
 
