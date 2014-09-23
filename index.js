@@ -5,26 +5,66 @@ var _ = require('underscore'),
     stylus = require('stylus'),
     nib = require('nib'),
     morgan = require('morgan'),
+    errorhandler = require('errorhandler'),
+    favicon = require('serve-favicon'),
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
     express = require('express');
 
-var ChatServer = require('./chat.js');
+var app = express();
+var server = app.listen(process.env.PORT || 3000);
+var io = require('socket.io').listen(server);
+var env = process.env.NODE_ENV || 'development';
 
-var requireLogin = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.redirect('/login?next=' + req.path);
-    }
-};
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(morgan('combined'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(methodOverride());
 
-var Server = function (config) {
-    var self = this;
-    self.config = config;
-    self.app = express();
-
-    self.app.set('views', __dirname + '/views')
-    self.app.set('view engine', 'jade')
-    self.app.use(morgan('combined'))
-    self.app.use(express.static(__dirname + '/public'))
-
+if ('development' == env) {
+    app.use(errorhandler());
 }
+
+var users = [];
+
+app.get('/', function(req, res){
+    res.render('index', {
+        title: 'Home'
+    });
+});
+
+// getnext
+
+app.get('/available', function(req, res){
+    res.send({available: users.length});
+});
+
+/*
+io.configure(function() {
+    io.enable('browser client minification');
+    io.enable('browser client etag');
+    io.enable('browser client gzip');
+    io.set('destroy upgrade', false);
+    io.set('log level', 1);
+    io.set('transports', ["websocket", "htmlfile", "xhr-polling", "jsonp-polling"]);
+});
+
+io.sockets.on('connection', function(socket) {
+    socket.on("hello", function(jid) {
+        users.push({socket: socket.id.toString(), jid: jid});
+        io.sockets.emit("queue", users.length);
+    });
+    socket.on("disconnect", function() {
+        var userFilter = users.filter(function (user) {
+            return user.socket == socket.id.toString()
+        });
+        if (userFilter && userFilter.length) {
+            users.splice(users.indexOf(userFilter[0]), 1);
+            io.sockets.emit("queue", users.length);
+        }
+    });
+});
+*/
