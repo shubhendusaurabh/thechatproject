@@ -1,13 +1,15 @@
 extends layout
 
 block mainContent
-  center
-    .login-header
-      h1= title
+  div.container
+      ul.pages
+        li.chat.page
+          div.chatArea
+            ul.messages
+          input.inputMessage
+        li.login.page
+          div.form
+            h3.title Nickname?
+            input.usernameInput
 
-    h1.elevator-pitch
-      br
-      br
-      | Welcome to WebRTC Chat Roulette!
-      br
-      | Click on the Roulette button below or wait for a call.
+      script(src="/public/js/main.js")
