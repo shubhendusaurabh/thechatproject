@@ -42,16 +42,6 @@ app.get('/available', function(req, res){
     res.send({available: users.length});
 });
 
-/*
-io.configure(function() {
-    io.enable('browser client minification');
-    io.enable('browser client etag');
-    io.enable('browser client gzip');
-    io.set('destroy upgrade', false);
-    io.set('log level', 1);
-    io.set('transports', ["websocket", "htmlfile", "xhr-polling", "jsonp-polling"]);
-});
-
 io.sockets.on('connection', function(socket) {
     socket.on("hello", function(jid) {
         users.push({socket: socket.id.toString(), jid: jid});
@@ -67,4 +57,3 @@ io.sockets.on('connection', function(socket) {
         }
     });
 });
-*/
