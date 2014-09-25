@@ -92,5 +92,6 @@ app.get('/', function(req, res){
 // getnext
 
 app.get('/available', function(req, res){
-    res.send({available: users.length});
+    console.log(numUsers);
+    res.send({available: numUsers.length});
 });
