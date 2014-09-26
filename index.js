@@ -2,6 +2,7 @@ var _ = require('underscore'),
     fs = require('fs'),
     path = require('path'),
     http = require('http'),
+    events = require('events'),
     stylus = require('stylus'),
     nib = require('nib'),
     morgan = require('morgan'),
@@ -9,6 +10,7 @@ var _ = require('underscore'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
+    sanitize = require('validator'),
     express = require('express');
 
 var app = express();
@@ -26,15 +28,32 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(methodOverride());
 
 if ('development' == env) {
-    app.use(errorhandler());
+    app.use(errorhandler({ dumpExceptions: true, showStack: true }));
     app.locals.pretty = true;
 }
 
 var usernames = {};
 var numUsers = 0;
 
+var logger = new events.EventEmitter();
+logger.on('newEvent', function(event, data) {
+    console.log('%s: %s', event, JSON.stringify(data));
+});
+
+var sanitizeMessage = function(req, res, next) {
+    if (req.body.msg) {
+        req.sanitizeMessage = sanitize(req.body.msg).xss();
+        next();
+    } else {
+        res.send(400, "No message provided");
+    }
+};
+
 io.on('connection', function (socket) {
     var addedUser = false;
+
+    socket.emit('connected', 'Welcome to the chat server');
+    logger.emit('newEvent', 'userConnect', {'socket': socket.id});
 
     socket.on('new message', function (data) {
         socket.broadcast.emit('new message', {
@@ -93,5 +112,17 @@ app.get('/', function(req, res){
 
 app.get('/available', function(req, res){
     console.log(numUsers);
-    res.send({available: numUsers.length});
+    res.send({available: numUsers});
 });
+
+var sendBroadcast = function(text) {
+    _.each(_.keys(io.sockets.manager.rooms), function(room) {
+        room = room.substr(1);
+
+        if (room) {
+            var message = {'room': room, 'username': 'ServerBot', 'msg': text, 'date': new Date()};
+            //io.sockets.in(room).emit('newMessage' message);
+        }
+    });
+    logger.emit('newEvent', 'newBroadcastMessage', {'msg': text});
+};
