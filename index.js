@@ -32,7 +32,7 @@ if ('development' == env) {
     app.locals.pretty = true;
 }
 
-var users = [];
+var users = {};
 var numUsers = 0;
 
 var logger = new events.EventEmitter();
@@ -63,14 +63,30 @@ io.on('connection', function (socket) {
     });
 
     socket.on('add user', function (username) {
-        socket.username = username;
-        users[username] = username;
-        numUsers += 1;
-        addedUser = true;
-        socket.emit('login', {
-            numUsers: numUsers
+        var exists = false;
+        _.find(users, function(key, value) {
+            if (key.username.toLowerCase() === username.toLowerCase())
+                return exists = true;
         });
-
+        if (exists) {
+            var randomNumber = Math.floor(Math.random() * 1001);
+            do {
+                proposedName = username+randomNumber;
+                _.find(users, function(key, value) {
+                    if (key.username.toLowerCase() === proposedName.toLowerCase())
+                        return exists = true;
+                });
+            } while (!exists);
+            socket.emit('username exists', {msg: "The username exists, please choose another.", proposedName: proposedName});
+        } else {
+            socket.username = username;
+            users[socket.id] = {"username": username};
+            numUsers += 1;
+            addedUser = true;
+            socket.emit('login', {
+                numUsers: numUsers
+            });
+        }
         socket.broadcast.emit('user joined', {
             username: socket.username,
             numUsers: numUsers

@@ -202,6 +202,16 @@ $(function () {
         addParticipantsMessage(data);
     });
 
+    socket.on('username exists', function (data) {
+        log(data.msg);
+        $loginPage.fadeIn();
+        $chatPage.hide();
+        $loginPage.on('click');
+        //$currentInput = $inputMessage.focus();
+        console.log(data)
+        setUsername();
+    });
+
     socket.on('new message', function (data) {
         addChatMessage(data);
     });
