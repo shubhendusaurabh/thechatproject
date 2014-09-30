@@ -32,7 +32,7 @@ if ('development' == env) {
     app.locals.pretty = true;
 }
 
-var usernames = {};
+var users = [];
 var numUsers = 0;
 
 var logger = new events.EventEmitter();
@@ -64,7 +64,7 @@ io.on('connection', function (socket) {
 
     socket.on('add user', function (username) {
         socket.username = username;
-        usernames[username] = username;
+        users[username] = username;
         numUsers += 1;
         addedUser = true;
         socket.emit('login', {
@@ -91,7 +91,7 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
         if (addedUser) {
-            delete usernames[socket.username];
+            delete users[socket.username];
             numUsers -= 1;
 
             socket.broadcast.emit('user left', {
