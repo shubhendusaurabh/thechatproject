@@ -142,3 +142,16 @@ var sendBroadcast = function(text) {
     });
     logger.emit('newEvent', 'newBroadcastMessage', {'msg': text});
 };
+
+// 404 catch-all handler
+app.use(function(req, res, next) {
+    res.status(404);
+    res.render('404');
+});
+
+// 500 error handler
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500);
+    res.render('500');
+});
