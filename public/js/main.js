@@ -206,10 +206,8 @@ $(function () {
         log(data.msg);
         $loginPage.fadeIn();
         $chatPage.hide();
-        $loginPage.on('click');
-        //$currentInput = $inputMessage.focus();
+        $('#setUsername').on('click', setUsername);
         console.log(data)
-        setUsername();
     });
 
     socket.on('new message', function (data) {

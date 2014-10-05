@@ -64,20 +64,12 @@ io.on('connection', function (socket) {
 
     socket.on('add user', function (username) {
         var exists = false;
-        _.find(users, function(key, value) {
+        exists = _.find(users, function(key, value) {
             if (key.username.toLowerCase() === username.toLowerCase())
-                return exists = true;
+                return true;
         });
         if (exists) {
-            var randomNumber = Math.floor(Math.random() * 1001);
-            do {
-                proposedName = username+randomNumber;
-                _.find(users, function(key, value) {
-                    if (key.username.toLowerCase() === proposedName.toLowerCase())
-                        return exists = true;
-                });
-            } while (!exists);
-            socket.emit('username exists', {msg: "The username exists, please choose another.", proposedName: proposedName});
+            socket.emit('username exists', {msg: "The username exists, please choose another."});
         } else {
             socket.username = username;
             users[socket.id] = {"username": username};
@@ -86,11 +78,11 @@ io.on('connection', function (socket) {
             socket.emit('login', {
                 numUsers: numUsers
             });
+            socket.broadcast.emit('user joined', {
+                username: socket.username,
+                numUsers: numUsers
+            });
         }
-        socket.broadcast.emit('user joined', {
-            username: socket.username,
-            numUsers: numUsers
-        });
     });
 
     socket.on('typing', function () {
