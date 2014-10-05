@@ -11,12 +11,8 @@ style
 block mainContent
     div.container
 
-        form#createRoom
-            input#sessionInput
-            button.btn(type=submit) Submit
-
-        video#localVideo
-        div#remoteVideo
+        video#localVideo(style='height:150px;')
+        div#remoteVideo(style='height:150px;')
 
         script(src="http://simplewebrtc.com/latest.js")
 
@@ -56,19 +52,4 @@ block mainContent
                 if (remotes && el) {
                     remotes.removeChild(el);
                 }
-            });
-
-            $('form').submit(function() {
-                var val = $('#sessionInput').val().toLowerCase();
-                webrtc.createRoom(val, function(err, name) {
-                    console.log('create roomcb', arguments);
-
-                    var newUrl = location.pathname + '?' + name;
-                    if (!err) {
-                        history.replaceState({foo: 'bar'}, null, newUrl);
-                    } else {
-                        console.error(err);
-                    }
-                });
-                return false;
             });
