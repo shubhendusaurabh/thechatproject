@@ -13,7 +13,7 @@ block mainContent
 
         form#createRoom
             input#sessionInput
-            button(type=submit, class=btn) Submit
+            button.btn(type=submit) Submit
 
         video#localVideo
         div#remoteVideo
@@ -21,7 +21,8 @@ block mainContent
         script(src="http://simplewebrtc.com/latest.js")
 
         script.
-            var peer = location.search && location.search.split('?')[1];
+            var room = location.search && location.search.split('?')[1];
+            console.log(room);
 
             var webrtc = new SimpleWebRTC({
                 localVideoEl: 'localVideo',
@@ -38,7 +39,7 @@ block mainContent
                 console.log('video added', peer);
                 var remotes = document.getElementById('remoteVideo');
                 var d = document.createElement('div');
-                d.className = 'videoContainer';
+                d.className = 'remoteVideo';
                 d.id = 'container_' + webrtc.getDomId(peer);
                 d.appendChild(video);
                 video.onclick = function() {
@@ -58,8 +59,7 @@ block mainContent
             });
 
             $('form').submit(function() {
-                var val = $('#sessionInput').val().toLowerCase().replace(/\s\g, '-')
-                            .replace(/[^A-Za-z0-9_\-]/g, '');
+                var val = $('#sessionInput').val().toLowerCase();
                 webrtc.createRoom(val, function(err, name) {
                     console.log('create roomcb', arguments);
 
@@ -69,7 +69,6 @@ block mainContent
                     } else {
                         console.error(err);
                     }
-                })
+                });
                 return false;
             });
-            }
