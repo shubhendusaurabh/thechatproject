@@ -64,7 +64,6 @@ io.on('connection', function (socket) {
 
     socket.on('add user', function (username) {
         var exists = false;
-        console.log(users);
         exists = _.find(users, function(key, value) {
             if (key.username.toLowerCase() === username.toLowerCase())
                 return true;
@@ -84,6 +83,7 @@ io.on('connection', function (socket) {
                 numUsers: numUsers
             });
         }
+        console.log(users);
     });
 
     socket.on('typing', function () {
@@ -109,6 +109,8 @@ io.on('connection', function (socket) {
             });
         }
     });
+
+
 });
 
 app.get('/', function(req, res){
