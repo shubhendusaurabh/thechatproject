@@ -119,7 +119,11 @@ app.get('/', function(req, res){
     });
 });
 
-// getnext
+app.get('/p2p', function(req, res){
+    res.render('p2p', {
+        title: 'P2P'
+    });
+});
 
 app.get('/available', function(req, res){
     console.log(numUsers);
