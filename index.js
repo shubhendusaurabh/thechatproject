@@ -64,6 +64,7 @@ io.on('connection', function (socket) {
 
     socket.on('add user', function (username) {
         var exists = false;
+        console.log(users);
         exists = _.find(users, function(key, value) {
             if (key.username.toLowerCase() === username.toLowerCase())
                 return true;
@@ -138,12 +139,12 @@ var sendBroadcast = function(text) {
 // 404 catch-all handler
 app.use(function(req, res, next) {
     res.status(404);
-    res.render('404');
+    res.render('404.jade', {title: '404: Page not found!'});
 });
 
 // 500 error handler
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
+app.use(function(error, req, res, next) {
+    console.error(error.stack);
     res.status(500);
-    res.render('500');
+    res.render('500.jade', {title: '500: Internal Server Error', error: error});
 });
