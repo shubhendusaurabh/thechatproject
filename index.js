@@ -110,7 +110,13 @@ io.on('connection', function (socket) {
         }
     });
 
-
+    socket.on('getNext', function() {
+        if (numUsers) {
+            socket.emit('nextUser', {username: 'username'});
+        } else {
+            socket.emit('noUser', {msg: 'No other users are available at this moment.'});
+        }
+    });
 });
 
 app.get('/', function(req, res){
