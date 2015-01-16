@@ -20,18 +20,18 @@
     "url": "https://github.com/shubhendusaurabh/thechatproject/issues"
   },
   "dependencies": {
-    "body-parser": "~1.8.3",
-    "errorhandler": "~1.2.0",
-    "express": "~4.9.4",
-    "jade": "~1.7.0",
-    "method-override": "~2.2.0",
-    "morgan": "~1.3.1",
-    "nib": "~1.0.3",
-    "sanitizer": "^0.1.2",
-    "serve-favicon": "~2.1.4",
-    "socket.io": "~1.1.0",
-    "stylus": "~0.49.0",
-    "underscore": "~1.7.0",
-    "validator": "^3.19.0"
+    "body-parser": "*",
+    "errorhandler": "*",
+    "express": "*",
+    "jade": "*",
+    "method-override": "*",
+    "morgan": "*",
+    "nib": "*",
+    "sanitizer": "*",
+    "serve-favicon": "*",
+    "socket.io": "*",
+    "stylus": "*",
+    "underscore": "*",
+    "validator": "*"
   }
 }
