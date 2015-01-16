@@ -32,8 +32,9 @@ if ('development' == env) {
     app.locals.pretty = true;
 }
 
-var users = {};
+var users = [];
 var numUsers = 0;
+var connectedUsers = 0;
 
 var logger = new events.EventEmitter();
 logger.on('newEvent', function(event, data) {
@@ -50,7 +51,9 @@ var sanitizeMessage = function(req, res, next) {
 };
 
 io.on('connection', function (socket) {
+    connectedUsers++;
     var addedUser = false;
+    users.push({"id": socket.id, "available": true});
 
     socket.emit('connected', 'Welcome to the chat server');
     logger.emit('newEvent', 'userConnect', {'socket': socket.id});
@@ -71,7 +74,7 @@ io.on('connection', function (socket) {
         if (exists) {
             socket.emit('username exists', {msg: "The username exists, please choose another."});
         } else {
-            socket.username = username;
+            
             users[socket.id] = {"username": username};
             numUsers += 1;
             addedUser = true;
@@ -99,6 +102,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
+        connectedUsers--;
         if (addedUser) {
             delete users[socket.username];
             numUsers -= 1;
@@ -111,9 +115,17 @@ io.on('connection', function (socket) {
     });
 
     socket.on('getNext', function() {
-        if (numUsers) {
-            socket.emit('nextUser', {username: 'username'});
+        
+        if (connectedUsers > 1) {
+            // get a random user
+            var room = Math.random().toString(36).substring(5);
+            var randomUser = users[Math.floor(Math.random()*users.length)];
+            randomUser = users[1];
+            // generate some unique room name for them and return it
+            console.log(users);
+            socket.emit('nextUser', {user: randomUser});
         } else {
+            
             socket.emit('noUser', {msg: 'No other users are available at this moment.'});
         }
     });
@@ -135,18 +147,6 @@ app.get('/available', function(req, res){
     console.log(numUsers);
     res.send({available: numUsers});
 });
-
-var sendBroadcast = function(text) {
-    _.each(_.keys(io.sockets.manager.rooms), function(room) {
-        room = room.substr(1);
-
-        if (room) {
-            var message = {'room': room, 'username': 'ServerBot', 'msg': text, 'date': new Date()};
-            //io.sockets.in(room).emit('newMessage' message);
-        }
-    });
-    logger.emit('newEvent', 'newBroadcastMessage', {'msg': text});
-};
 
 // 404 catch-all handler
 app.use(function(req, res, next) {
