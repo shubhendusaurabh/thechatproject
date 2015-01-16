@@ -4,7 +4,7 @@ module.exports = function() {
 
     var Stream = function(name) {
         this.name = name;
-    }
+    };
 
     return {
         addStream: function(id, name) {
@@ -27,5 +27,5 @@ module.exports = function() {
         getStreams: function() {
             return streamList;
         }
-    }
+    };
 };

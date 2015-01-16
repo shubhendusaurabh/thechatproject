@@ -16,9 +16,9 @@ var Chat = {
 
   removeUser: function(socket){
     socket.broadcast.emit('remove', socket.id);
-  }
+  },
 
-, addUser: function(io, socket, name){
+  addUser: function(io, socket, name){
     name = clean(truncate(name, 36));
 
     if (! isOk(name)){
@@ -36,10 +36,10 @@ var Chat = {
       });
 
       socket.emit('ready');
-    })
-  }
+    });
+  },
 
-, sendMessage: function(socket, username, msg){
+  sendMessage: function(socket, username, msg){
     if (isOk(username) && isOk(msg)){
       msg = clean(truncate(msg, 500));
       username = clean(truncate(username, 36));
@@ -47,6 +47,6 @@ var Chat = {
     }
   }
 
-}
+};
 
 module.exports = Chat;
