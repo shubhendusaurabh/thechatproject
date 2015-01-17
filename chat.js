@@ -1,3 +1,6 @@
+/*jslint node: true */
+"use strict";
+
 var sanitizer = require('sanitizer');
 
 function isOk(text){

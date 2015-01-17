@@ -1,3 +1,6 @@
+/*jslint node: true */
+"use strict";
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -7,7 +10,8 @@ module.exports = function(grunt) {
         globals: {
           jQuery: true
         },
-        force: true
+        force: true,
+        globalstrict: true
       }
     },
     watch: {

@@ -1,3 +1,6 @@
+/*jslint node: true */
+"use strict";
+
 var _ = require('underscore'),
     fs = require('fs'),
     path = require('path'),
