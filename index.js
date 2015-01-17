@@ -2,44 +2,20 @@
 "use strict";
 
 var _ = require('underscore'),
-    fs = require('fs'),
-    path = require('path'),
     http = require('http'),
     events = require('events'),
     stylus = require('stylus'),
     nib = require('nib'),
-    morgan = require('morgan'),
-    errorhandler = require('errorhandler'),
-    favicon = require('serve-favicon'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
     sanitize = require('validator'),
-    compression = require('compression'),
     express = require('express');
 
 var app = express();
 var server = app.listen(process.env.PORT || 3000);
+var configurations = module.exports;
 var io = require('socket.io').listen(server);
-var env = process.env.NODE_ENV || 'development';
+var settings = require('./settings')(app, configurations, express);
 
-(function () {
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
-    app.use(favicon(__dirname + '/public/favicon.ico'));
-    app.use(morgan('combined'));
-    app.use('/public', express.static(path.join(__dirname, 'public')));
-    app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true}));
-    app.use(methodOverride());
 
-    if ('development' == env) {
-        app.use(errorhandler({ dumpExceptions: true, showStack: true }));
-        app.locals.pretty = true;
-    } else {
-        app.use(compression);
-    }
-})();
 var users = [];
 var numUsers = 0;
 var connectedUsers = 0;
@@ -154,17 +130,4 @@ app.get('/p2p', function(req, res){
 app.get('/available', function(req, res){
     console.log(numUsers);
     res.send({available: numUsers});
-});
-
-// 404 catch-all handler
-app.use(function(req, res, next) {
-    res.status(404);
-    res.render('404.jade', {title: '404: Page not found!'});
-});
-
-// 500 error handler
-app.use(function(error, req, res, next) {
-    console.error(error.stack);
-    res.status(500);
-    res.render('500.jade', {title: '500: Internal Server Error', error: error});
 });
