@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var sanitizer = require('sanitizer');
+var sanitizer = require("sanitizer");
 
 function isOk(text){
   return (text && text.length > 0);
@@ -18,7 +18,7 @@ function clean(text){
 var Chat = {
 
   removeUser: function(socket){
-    socket.broadcast.emit('remove', socket.id);
+    socket.broadcast.emit("remove", socket.id);
   },
 
   addUser: function(io, socket, name){
@@ -28,17 +28,17 @@ var Chat = {
       return false;
     }
 
-    socket.set('username', name, function(){
-      socket.broadcast.emit('add', socket.id, name);
+    socket.set("username", name, function(){
+      socket.broadcast.emit("add", socket.id, name);
       io.sockets.clients().forEach(function(otherSocket){
-        otherSocket.get('username', function(err, username){
+        otherSocket.get("username", function(err, username){
           if (username) {
-            socket.emit('add', otherSocket.id, username);
+            socket.emit("add", otherSocket.id, username);
           }
         });
       });
 
-      socket.emit('ready');
+      socket.emit("ready");
     });
   },
 
@@ -46,7 +46,7 @@ var Chat = {
     if (isOk(username) && isOk(msg)){
       msg = clean(truncate(msg, 500));
       username = clean(truncate(username, 36));
-      socket.broadcast.emit('msg', username, msg);
+      socket.broadcast.emit("msg", username, msg);
     }
   }
 
