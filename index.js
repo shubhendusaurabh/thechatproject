@@ -14,6 +14,7 @@ var _ = require('underscore'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     sanitize = require('validator'),
+    compression = require('compression'),
     express = require('express');
 
 var app = express();
@@ -21,20 +22,24 @@ var server = app.listen(process.env.PORT || 3000);
 var io = require('socket.io').listen(server);
 var env = process.env.NODE_ENV || 'development';
 
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(morgan('combined'));
-app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
-app.use(bodyParser.urlencoded({ extended: false}));
-app.use(methodOverride());
+(function () {
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
+    app.use(favicon(__dirname + '/public/favicon.ico'));
+    app.use(morgan('combined'));
+    app.use('/public', express.static(path.join(__dirname, 'public')));
+    app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true}));
+    app.use(methodOverride());
 
-if ('development' == env) {
-    app.use(errorhandler({ dumpExceptions: true, showStack: true }));
-    app.locals.pretty = true;
-}
-
+    if ('development' == env) {
+        app.use(errorhandler({ dumpExceptions: true, showStack: true }));
+        app.locals.pretty = true;
+    } else {
+        app.use(compression);
+    }
+})();
 var users = [];
 var numUsers = 0;
 var connectedUsers = 0;
