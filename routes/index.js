@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (app, io) {
+module.exports = function (app) {
   var crypto = require('crypto');
   
   var getUserId = function (fingerPrint, ip) {
@@ -27,9 +27,16 @@ module.exports = function (app, io) {
   app.get('/info', function (req, res) {
     res.render('info');
   });
-  
-  app.get('/', function (req, res) {
-    res.render('index');
+
+  app.get("/p2p", function (req, res) {
+    res.render("p2p", {
+      title: "P2P"
+    });
+  });
+
+  app.get("/available", function (req, res) {
+    console.log(numUsers);
+    res.send({available: numUsers});
   });
   
   app.get('/ip', function (req, res) {
@@ -41,6 +48,22 @@ module.exports = function (app, io) {
   
   app.get('/terms', function (req, res) {
     res.render('terms');
+  });
+  
+  app.get('/partials/:name', function (req, res) {
+    var name = req.params.name;
+    console.log(name);
+    res.render('partials/' + name);
+  });
+
+  app.get("/", function (req, res) {
+    res.render("index", {
+      title: "Home"
+    });
+  });
+  
+  app.get('*', function (req, res) {
+    res.render('index');
   });
   
   var addChat = function (message, userId, ip, next) {

@@ -114,19 +114,5 @@ io.on("connection", function (socket) {
   });
 });
 
-app.get("/", function (req, res) {
-  res.render("index", {
-    title: "Home"
-  });
-});
-
-app.get("/p2p", function (req, res) {
-  res.render("p2p", {
-    title: "P2P"
-  });
-});
-
-app.get("/available", function (req, res) {
-  console.log(numUsers);
-  res.send({available: numUsers});
-});
+// Routes
+require('./routes')(app);
