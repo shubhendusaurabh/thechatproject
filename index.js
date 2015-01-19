@@ -10,7 +10,9 @@ var app = express();
 var server = app.listen(process.env.PORT || 3000);
 var configurations = module.exports;
 var io = require("socket.io").listen(server);
-var settings = require("./settings")(app, configurations, express);
+var settings;
+
+settings = require("./settings")(app, configurations, express);
 
 
 var users = [];
@@ -22,6 +24,7 @@ logger.on("newEvent", function (event, data) {
   console.log("%s: %s", event, JSON.stringify(data));
 });
 
+/*exported sanitizeMessage */
 var sanitizeMessage = function (req, res, next) {
     if (req.body.msg) {
       req.sanitizeMessage = sanitize(req.body.msg).xss();
@@ -100,8 +103,7 @@ io.on("connection", function (socket) {
 
     if (connectedUsers > 1) {
       // get a random user
-      var room = Math.random().toString(36).substring(5),
-        randomUser = users[Math.floor(Math.random() * users.length)];
+      var randomUser = users[Math.floor(Math.random() * users.length)];
       randomUser = users[1];
       // generate some unique room name for them and return it
       console.log(users);

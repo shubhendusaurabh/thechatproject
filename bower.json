@@ -25,7 +25,9 @@
   "dependencies": {
     "jquery": "*",
     "bootstrap": "*",
-    "angularjs": "*",
-    "lodash": "~2.4.1"
+    "angular": "*",
+    "angular-route": "*",
+    "lodash": "*",
+    "angular-bootstrap": "*"
   }
 }

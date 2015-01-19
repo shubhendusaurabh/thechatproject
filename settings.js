@@ -12,7 +12,7 @@ var errorhandler = require("errorhandler");
 var env = process.env.NODE_ENV || "development";
 
 module.exports = function (app, configurations, express) {
-  var maxAge = 24 * 60 * 60 * 1000 * 28;
+  //var maxAge = 24 * 60 * 60 * 1000 * 28;
   
   app.set("views", __dirname + "/views");
   app.set("view engine", "jade");
@@ -34,12 +34,14 @@ module.exports = function (app, configurations, express) {
     
     // 404 catch-all handler
     app.use(function (req, res, next) {
+      /* jslint unused: false */
       res.status(404);
       res.render("404.jade", {title: "404: Page not found!"});
     });
 
     // 500 error handler
     app.use(function (error, req, res, next) {
+      /* jslint unused: false */
       console.error(error.stack);
       res.status(500);
       res.render("500.jade", {title: "500: Internal Server Error", error: error});
