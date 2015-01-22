@@ -1,8 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var _ = require("underscore"),
-  events = require("events"),
+var events = require("events"),
   sanitize = require("validator"),
   express = require("express");
 
@@ -33,4 +32,4 @@ var sanitizeMessage = function (req, res, next) {
 
 
 // Routes
-require('./routes')(app);
+require("./routes")(app);
