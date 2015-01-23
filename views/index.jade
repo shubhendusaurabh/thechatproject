@@ -2,6 +2,8 @@ extends layout
 
 block mainContent
   div.container
+    h1 The Chat Project
+
     ul.menu
       li
         a(href='view1') View 1
@@ -13,7 +15,9 @@ block mainContent
     div
       | The Chat Project app: v
       span(app-version)
-
+  footer.footer
+    div.container
+      p.text-info Footer
     script(src='bower_components/angular/angular.js')
     script(src='bower_components/angular-route/angular-route.js')
     script(src='public/js/app.js')
