@@ -1,0 +1,77 @@
+script(id="chattrBaseTpl", type="text/x-angular-template")
+  div#chattr
+   div#relative_wrapper
+     div#chat_header.chat-header
+     div
+       span
+       span
+       span
+     div.inner-chat
+       p#displayHelp Type /help for a list of commands
+       ul#messages
+     div.chat-input-wrapper
+       input#chatInput(placeholder="Write Here")
+
+script(id="chattrChatTpl", type="text/x-angular-template")
+  li.chat
+  label {{nickname}}
+  p(data-date="date" title="time")
+
+script(id="chattrStatusTpl", type="text/x-angular-template")
+  li.status
+    p
+     span.oldName {{oldName}}
+     | is now known as 
+     span.newName {{newName}}
+
+script(id="chattrNewUserTpl", type="text/x-angular-template")
+  li.status.newUser
+    p
+      span {{nickname}}
+      | has joined the room
+
+script(id="chattrUserLeaveTpl", type="text/x-angular-template")
+  li.status.newUser
+    p
+      span {{nickname}}
+      | has left the room.
+
+script(id="chattrUpdateTpl", type="text/x-angular-template")
+  li.status.cls
+    span {{text}}
+
+script(id="chattrUserListTpl", type="text/x-angular-template")
+  ul.userList
+    | Users in this room right now
+    {% for user in users %}
+    li.userList.last {{name}}
+    {% endfor %}
+
+
+script(id="chattrHelpTpl", type="text/x-angular-template")
+  p Type 
+    span /name
+    | to change your display name
+  p Type 
+    span /list
+    | to see a list of users in the room
+
+script(id="chattrNameExistsTpl", type="text/x-angular-template")
+  p User
+    span {{newName}}
+    | already exists. Please choose another name.
+
+script(id="chattrFocusTpl", type="text/x-angular-template")
+  li.status
+    p User
+      span {{nick}}
+      | now has focus.
+
+script(id="chattrUnfocusTpl", type="text/x-angular-template")
+  li.status
+    p Focus has been removed.
+
+script(id="userStreamTemplate", type="text/x-angular-template")
+  div.streamContainer
+    div.id
+    div.flagUser Remove User

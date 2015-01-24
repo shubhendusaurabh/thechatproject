@@ -1,1 +1,11 @@
-p This is the partial for view 1.
+div#streamsContainer
+  div.streamContainer#myPublisherContainer
+    div#myPublisher
+div#controlsContainer
+  div.controlsBody Controls
+    div#controlOptions.OptionContainer
+      a Options
+    div#controlOptionsRight
+      div#roomLinkButton Link
+      div#chatButton Text Chat
+div(ng-include="'partials/textChat.jade'")
