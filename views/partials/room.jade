@@ -1,11 +1,37 @@
 div#streamsContainer
   div.streamContainer#myPublisherContainer
     div#myPublisher
+      div.col-md-5
+        div.panel.panel-primary
+          div.panel-heading#accordion
+            span.glyphicon.glyphicon-comment Chat
+            div.btn-group.pull-right
+              a.btn.btn-default(data-toggle="collapse", data-parent="#accordion")
+                span.glyphicon.glyphicon-chevron-down
+        div.panel-collapse.collapse#collapseOne
+          div.panel-body
+            ul.chat
+              li.left.clearfix
+                span.chat-img.pull-left
+                  img.img-circle(alt="User Avatar")
+                div.chat-body.clearfix
+                  div.header
+                    strong.primary-font
+                      small.pull-right.text-muted
+                        span.glyphicon.glyphicon-time
+                  p Lorem Ipsum sit amet 
+          div.panel-footer
+            div.input-group
+              input#btn-group.form-control.input-sm(type="text", placeholder="Type here")
+              span.input-group-btn
+                button.btn.btn-warning.btn-sm#btn-chat Send
 div#controlsContainer
   div.controlsBody Controls
     div#controlOptions.OptionContainer
       a Options
     div#controlOptionsRight
-      div#roomLinkButton Link
-      div#chatButton Text Chat
+      div#roomLinkButton
+        span.glyphicon.glyphicon-link Link
+      div#chatButton
+        span.glyphicon.glyphicon-comment Chat
 div(ng-include="'partials/textChat.jade'")
