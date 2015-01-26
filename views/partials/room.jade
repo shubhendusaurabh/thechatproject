@@ -5,8 +5,12 @@ div.row
         div.panel-heading Video here
         div.panel-body
           div.embed-responsive.embed-responsive-4by3
-            iframe.embed-responsive-item#myPublisher
-          
+            div.embed-responsive-item#myPublisher
+              div.videoLoading
+        div.panel-footer
+          ul.list-inline.text-right
+            li#roomLinkButton: button.btn.btn-primary: span.glyphicon.glyphicon-link  Link
+            li#chatButton: button.btn.btn-warning: span.glyphicon.glyphicon-comment  Chat
   div.col-md-6
     div.panel.panel-primary.chat
       div.panel-heading
@@ -29,13 +33,4 @@ div.row
           input#btn-group.form-control.input-sm(type="text", placeholder="Type here")
           span.input-group-btn
             button.btn.btn-warning.btn-sm#btn-chat Send
-div#controlsContainer
-  div.controlsBody Controls
-    div#controlOptions.OptionContainer
-      a Options
-    div#controlOptionsRight
-      div#roomLinkButton
-        span.glyphicon.glyphicon-link Link
-      div#chatButton
-        span.glyphicon.glyphicon-comment Chat
 div(ng-include="'partials/textChat.jade'")

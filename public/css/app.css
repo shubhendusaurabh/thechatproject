@@ -340,6 +340,13 @@ html {
 #myPublisher {
   background-color: #000;
 }
+.videoLoading {
+  background: url("/public/img/loader.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+  position: relative;
+  top: 50%;
+  left: 50%;
+  height: 32px;
+}
 div.panel.panel-primary.chat div.panel-body {
   overflow-y: scroll;
   height: 370px;
