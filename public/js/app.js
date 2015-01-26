@@ -4,6 +4,7 @@
 
 angular.module('myApp', [
   'ngRoute',
+  'ui.bootstrap',
   'myApp.controllers',
   'myApp.filters',
   'myApp.services',
@@ -13,11 +14,11 @@ config(function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/room', {
       templateUrl: 'partials/room',
-      controller: 'MyCtrl1'
+      controller: 'roomController'
     }).
     when('/group', {
       templateUrl: 'partials/group',
-      controller: 'MyCtrl2'
+      controller: 'GroupController'
     }).
     otherwise({
       redirectTo: '/room'

@@ -13,7 +13,7 @@ module.exports = function (server) {
     users.push({"id": socket.id, "available": true});
 
     socket.emit("connected", "Welcome to the chat server");
-    logger.emit("newEvent", "userConnect", {"socket": socket.id});
+    //logger.emit("newEvent", "userConnect", {"socket": socket.id});
 
     socket.on("new message", function (data) {
       socket.broadcast.emit("new message", {
@@ -86,4 +86,4 @@ module.exports = function (server) {
       }
     });
   });
-}
+};
