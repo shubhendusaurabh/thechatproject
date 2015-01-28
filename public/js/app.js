@@ -10,22 +10,26 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives'
 ]).
-config(function ($routeProvider, $locationProvider) {
-  $routeProvider.
-    when('/room', {
-      templateUrl: 'partials/room',
-      controller: 'roomController'
-    }).
-    when('/group', {
-      templateUrl: 'partials/group',
-      controller: 'GroupController'
-    }).
-    otherwise({
-      redirectTo: '/room'
-    });
+  config(function ($routeProvider, $locationProvider) {
+    $routeProvider.
+      when('/room/:roomId', {
+        templateUrl: '/partials/roomDetail',
+        controller: 'roomDetailController'
+      }).
+      when('/room', {
+        templateUrl: '/partials/room',
+        controller: 'roomController'
+      }).
+      when('/group', {
+        templateUrl: '/partials/group',
+        controller: 'groupController'
+      }).
+      otherwise({
+        redirectTo: '/room'
+      });
 
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
   });
-});

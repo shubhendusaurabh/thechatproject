@@ -43,9 +43,9 @@ script(id="chattrUpdateTpl", type="text/x-angular-template")
 script(id="chattrUserListTpl", type="text/x-angular-template")
   ul.userList
     | Users in this room right now
-    {% for user in users %}
+    | {% for user in users %}
     li.userList.last {{name}}
-    {% endfor %}
+    | {% endfor %}
 
 
 script(id="chattrHelpTpl", type="text/x-angular-template")

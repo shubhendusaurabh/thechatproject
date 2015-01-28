@@ -5,8 +5,8 @@ block mainContent
     h1 The Chat Project
 
     ul.menu
-      li: a(href='room') Room
-      li: a(href='group') Group
+      li: a(href='') Room
+      li: a(href='') Group
         
     div(ng-view)
     div
@@ -15,12 +15,13 @@ block mainContent
     footer.footer
       div.container
         p.text-info Footer
-  script(src='bower_components/angular/angular.js')
-  script(src='bower_components/angular-route/angular-route.js')
-  script(src='bower_components/angular-bootstrap/ui-bootstrap-tpls.js')
-  script(src='public/js/app.js')
-  script(src='public/js/controllers.js')
-  script(src='public/js/directives.js')
-  script(src='public/js/filters.js')
-  script(src='public/js/services.js')
-  script(src='public/js/socketService.js')
+  script(src='/bower_components/angular/angular.js')
+  script(src='/bower_components/angular-route/angular-route.js')
+  script(src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.js')
+  script(src='/public/js/adapter.js')
+  script(src='/public/js/app.js')
+  script(src='/public/js/controllers.js')
+  script(src='/public/js/directives.js')
+  script(src='/public/js/filters.js')
+  script(src='/public/js/services.js')
+  script(src='/public/js/socketService.js')

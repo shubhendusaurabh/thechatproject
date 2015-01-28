@@ -1,8 +1,9 @@
 'use strict';
 
 /* Controllers */
+var roomControllers = angular.module('myApp.controllers', []);
 
-angular.module('myApp.controllers', []).
+roomControllers.
   controller('roomController', ['$scope', '$WS', function ($scope, $WS) {
     $scope.messages = [];
     
@@ -17,7 +18,14 @@ angular.module('myApp.controllers', []).
       });
     });
 
-  }]).
+  }]);
+
+roomControllers.
+  controller('roomDetailController', ['$scope', '$routeParams', '$WS', function ($scope, $routeParams, $WS) {
+    console.log($routeParams.roomId);
+  }]);
+
+roomControllers.
   controller('groupController', function ($scope) {
     // write Ctrl here
 

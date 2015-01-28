@@ -56,6 +56,12 @@ module.exports = function (app) {
     res.render('partials/' + name);
   });
 
+  app.get('/room/:roomId', function (req, res) {
+    var name = req.params.roomId;
+    console.log(name);
+    res.render('index');
+  })
+
   app.get("/", function (req, res) {
     res.render("index", {
       title: "Home"
@@ -68,5 +74,5 @@ module.exports = function (app) {
   
   var addChat = function (message, userId, ip, next) {
     //emit chat here
-  }
-}
+  };
+};
