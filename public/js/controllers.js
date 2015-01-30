@@ -4,7 +4,7 @@
 var roomControllers = angular.module('myApp.controllers', []);
 
 roomControllers.
-  controller('roomController', ['$scope', '$WS', function ($scope, $WS) {
+  controller('roomController', ['$scope', '$WS', 'Room', function ($scope, $WS, Room) {
     $scope.messages = [];
     
     $WS.ready(function () {

@@ -7,6 +7,7 @@ div.row
           div.embed-responsive.embed-responsive-4by3
             div.embed-responsive-item#myPublisher
               div.videoLoading
+                videoPlayer.col-md-4(ng-repeat="peer in peers", vid-src="{{peer.stream}}")
         div.panel-footer
           ul.list-inline.text-right
             li#roomLinkButton: button.btn.btn-primary(tooltip="Share Link"): span.glyphicon.glyphicon-link
