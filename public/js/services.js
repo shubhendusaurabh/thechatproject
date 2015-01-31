@@ -1,4 +1,4 @@
-/* global RTCIceCandidate, RTCSessionDescription, RTCPeerConnection, EventEmitter */
+/* global RTCIceCandidate, RTCSessionDescription, RTCPeerConnection */
 'use strict';
 
 /* Services */
