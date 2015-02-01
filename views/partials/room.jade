@@ -5,9 +5,8 @@ div.row
         div.panel-heading Video here
         div.panel-body
           div.embed-responsive.embed-responsive-4by3
-            div.embed-responsive-item#myPublisher
-              div.videoLoading
-                videoPlayer.col-md-4(ng-repeat="peer in peers", vid-src="{{peer.stream}}")
+            video.embed-responsive-item#myPublisher(autoplay, poster="http://iphonewrd.com/img/loading.gif")
+            //video.col-md-4(ng-repeat="peer in peers", vid-src="{{peer.stream}}")
         div.panel-footer
           ul.list-inline.text-right
             li#roomLinkButton: button.btn.btn-primary(tooltip="Share Link"): span.glyphicon.glyphicon-link

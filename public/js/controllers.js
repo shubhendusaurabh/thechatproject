@@ -6,9 +6,16 @@ var roomControllers = angular.module('myApp.controllers', []);
 roomControllers.
   controller('roomController', ['$scope', '$WS', 'Room', function ($scope, $WS, Room) {
     $scope.messages = [];
-    $scope.userMedia = requestUserMedia({
+    $scope.videoContainer = document.querySelector('#myPublisher');
+
+    requestUserMedia({
       video: true,
       audio: true
+    }).then(function(stream){
+      console.log(stream);
+      attachMediaStream($scope.videoContainer, stream);
+    }, function(e){
+      console.error('Error' + e);
     });
     $WS.ready(function () {
       $WS.on('message', function (data) {

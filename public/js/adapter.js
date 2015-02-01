@@ -4,7 +4,7 @@ window.RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSess
 window.URL = window.URL || window.mozURL || window.webkitURL;
 window.navigator.getUserMedia = window.navigator.getUserMedia || window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
 
-var attachMediaStream = function (element, stream) {
+function attachMediaStream(element, stream) {
   'use strict';
   if (typeof element.srcObject !== 'undefined') {
     element.srcObject = stream;
@@ -15,7 +15,7 @@ var attachMediaStream = function (element, stream) {
   } else {
     console.log('Error attaching stream to element');
   }
-};
+}
 
 function requestUserMedia(constraints) {
   'use strict';
