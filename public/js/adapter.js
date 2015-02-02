@@ -29,8 +29,8 @@ function requestUserMedia(constraints) {
 
     try {
       window.navigator.getUserMedia(constraints, onSuccess, onError);
-    } catch (e) {
-      reject(e);
+    } catch (error) {
+      reject(error);
     }
   });
 }
