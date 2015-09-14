@@ -22,7 +22,7 @@ roomControllers.
         console.log(data);
         $scope.messages.push(data);
       });
-      
+
       $WS.on('connected', function (data) {
         console.log(data);
       });
@@ -40,3 +40,38 @@ roomControllers.
     // write Ctrl here
 
   });
+
+roomControllers.
+  controller('userProfileController', ['$scope', '$routeParams', '$WS',
+    function ($scope, $routeParams, $WS) {
+      console.log('you are viewing user', $routeParams.username);
+    }
+  ]);
+
+roomControllers.
+  controller('settingsController', ['$scope', '$routeParams', '$WS',
+    function ($scope, $routeParams, $WS) {
+      console.log('settings page');
+    }
+  ]);
+
+roomControllers.
+  controller('helpController', ['$scope', '$routeParams', '$WS',
+    function ($scope, $routeParams, $WS) {
+      console.log('helps page');
+    }
+  ]);
+
+roomControllers.
+  controller('userProfileController', ['$scope', '$routeParams', '$WS',
+    function ($scope, $routeParams, $WS) {
+      console.log('user profile page');
+    }
+  ]);
+
+roomControllers.
+  controller('accountController', ['$scope', '$routeParams', '$WS',
+    function ($scope, $routeParams, $WS) {
+      console.log('accoutn page');
+    }
+]);

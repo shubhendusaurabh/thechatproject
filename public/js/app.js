@@ -24,6 +24,22 @@ angular.module('myApp', [
         templateUrl: '/partials/group',
         controller: 'groupController'
       }).
+      when('/me', {
+        templateUrl: '/partials/me',
+        controller: 'accountController'
+      }).
+      when('/settings', {
+        templateUrl: '/partials/settings',
+        controller: 'settingsController'
+      }).
+      when('/help', {
+        templateUrl: '/partials/help',
+        controller: 'helpController'
+      }).
+      when('/user/:username', {
+        templateUrl: '/partials/account',
+        controller: 'userProfileController'
+      }).
       otherwise({
         redirectTo: '/room'
       });
