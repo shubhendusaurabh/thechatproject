@@ -58,7 +58,28 @@ roomControllers.
 roomControllers.
   controller('helpController', ['$scope', '$routeParams', '$WS',
     function ($scope, $routeParams, $WS) {
-      console.log('helps page');
+      $scope.tabs = [
+        {
+          title: 'FAQ',
+          content: 'Frequently Asked Questions'
+        },
+        {
+          title: 'Contact Us',
+          content: 'Contact the admin'
+        },
+        {
+          title: 'Policies',
+          content: 'Our content policy is to help everyone.'
+        },
+        {
+          title: 'Cookies',
+          content: 'Cookies help us to make better experience for our users'
+        },
+        {
+          title: 'Terms of Service',
+          content: 'We reserve the right to terminate service at any time.'
+        }
+      ];
     }
   ]);
 

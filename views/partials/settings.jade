@@ -1,2 +1,24 @@
-div.container
-  h2 Settings
+div.panel.panel-primary
+  div.panel-heading Settings
+  
+  div.panel-body
+    form
+      div.checkbox
+        label
+          input(type="checkbox")
+          | Play sounds
+      div.checkbox
+        label
+          input(type="checkbox")
+          | Open new tab when user messages me
+      div.checkbox
+        label
+          input(type="checkbox")
+          | E-mail me about new messages
+      div.checkbox
+        label
+          input(type="checkbox")
+          | E-mail me about new notifications
+  div.panel-footer
+    button.btn.btn-primary.pull-left Save Changes
+    button.btn.btn-success Close
