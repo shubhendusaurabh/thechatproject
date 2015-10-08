@@ -1,0 +1,25 @@
+div.container
+  div.col-md-4
+    h3 Shubhu
+    img.img-circle
+    p Recommendations
+    span.icon.icon-send India
+    button.btn.btn-danger.btn-lg Edit My Profile
+  div.col-md-8
+    form
+      label(for="username")
+        input(type="text", name="username", ng-model="user.username")#username
+      label(for="aboutMe")
+        textarea(name="aboutMe", ng-model="user.aboutMe")#aboutMe
+      label(for="country")
+        select(name="country", ng-model="user.country")#country
+          option(value="india") India
+          option(value="US") United States
+          option(value="UK") United Kingdom
+      label(for="gender")
+        select(name="gender", ng-model="user.gender")#gender
+          option(value="M") Male
+          option(value="F") Female
+          option(value="NF") Not Specified
+      button.btn.btn-success Save
+      button.btn.btn-danger(type="reset") Reset

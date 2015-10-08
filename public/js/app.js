@@ -40,6 +40,10 @@ angular.module('myApp', [
         templateUrl: '/partials/account',
         controller: 'userProfileController'
       }).
+      when('/user/:username/edit', {
+        templateUrl: '/partials/editAccount',
+        controller: 'userProfileController'
+      }).
       otherwise({
         redirectTo: '/room'
       });

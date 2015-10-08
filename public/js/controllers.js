@@ -87,6 +87,12 @@ roomControllers.
   controller('userProfileController', ['$scope', '$routeParams', '$WS',
     function ($scope, $routeParams, $WS) {
       console.log('user profile page');
+      $scope.user = {
+        username: 'shubhu',
+        aboutMe: 'I am groot',
+        gender: 'M',
+        country: 'india'
+      };
     }
   ]);
 
