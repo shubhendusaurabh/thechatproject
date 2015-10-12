@@ -37,16 +37,32 @@ roomControllers.
 
 roomControllers.
   controller('groupController', function ($scope) {
-    // write Ctrl here
+    $scope.users = [
+      {username: 'shubhu'},
+      {username: 'ij'},
+      {username: 'sims'}
+    ];
+
+    $scope.messages = [
+      {
+        text: 'Are we meeting today?',
+        username: 'shubhu',
+      },
+      {
+        text: 'Only if you say so!',
+        username: 'ij'
+      },
+      {
+        text: 'I know so',
+        username: 'shubhu'
+      },
+      {
+        text: 'I reckon so',
+        username: 'sims'
+      }
+    ];
 
   });
-
-roomControllers.
-  controller('userProfileController', ['$scope', '$routeParams', '$WS',
-    function ($scope, $routeParams, $WS) {
-      console.log('you are viewing user', $routeParams.username);
-    }
-  ]);
 
 roomControllers.
   controller('settingsController', ['$scope', '$routeParams', '$WS',
@@ -100,5 +116,6 @@ roomControllers.
   controller('accountController', ['$scope', '$routeParams', '$WS',
     function ($scope, $routeParams, $WS) {
       console.log('accoutn page');
+      $scope.username = $routeParams.username;
     }
 ]);

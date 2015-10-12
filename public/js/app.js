@@ -24,8 +24,8 @@ angular.module('myApp', [
         templateUrl: '/partials/group',
         controller: 'groupController'
       }).
-      when('/me', {
-        templateUrl: '/partials/me',
+      when('/user/:username', {
+        templateUrl: '/partials/user',
         controller: 'accountController'
       }).
       when('/settings', {
@@ -36,11 +36,11 @@ angular.module('myApp', [
         templateUrl: '/partials/help',
         controller: 'helpController'
       }).
-      when('/user/:username', {
+      when('/me', {
         templateUrl: '/partials/account',
         controller: 'userProfileController'
       }).
-      when('/user/:username/edit', {
+      when('/me/edit', {
         templateUrl: '/partials/editAccount',
         controller: 'userProfileController'
       }).
