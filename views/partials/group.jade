@@ -1,4 +1,4 @@
-div.container
+div.container#groupChat
   div.col-md-3
     div.panel.panel-primary
       div.panel-heading Online
@@ -8,12 +8,19 @@ div.container
   div.col-md-9
     div.panel.panel-primary
       div.panel-body
-        ul.chat-thread
-          li(ng-class="{self: message.username == 'shubhu'}", ng-repeat="message in messages") {{message.text}}
-      div.panel-footer
-        form.chat-window
-          input.chat-window-message(name="message", type="text")
-          button.btn.btn-primary(type="submit") Send
+        div.message-wrapper(ng-repeat="message in messages")
+          div.clearfix
+            img.profile-pic(ng-class="{right: message.username == 'shubhu', left: message.username != 'shubhu'}", ng-click="viewProfile(message.username)")
+            div.chat-bubble(ng-class="{right: message.username == 'shubhu', left: message.username != 'shubhu'}")
+              div.message {{message.text}}
+              div.message-detail
+                span.bold {{message.username}}
+                span.date {{message.time}}
+        div.panel-footer
+          form.form-inline.chat-window(ng-submit="sendMessage()")
+            div.form-group.chat-input-container
+              textarea.form-control.chat-input(elastic, ng-model="text", name="message", placeholder="text", rows="1")
+            button.btn.btn-primary(type="submit") Send
 p
   | Showing of 'interpolate' filter:
   | {{ 'Current version is v%VERSION%.' | interpolate }}

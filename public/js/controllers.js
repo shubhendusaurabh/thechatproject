@@ -62,6 +62,13 @@ roomControllers.
       }
     ];
 
+    $scope.sendMessage = function() {
+      var msg = {};
+      msg.username = 'shubhu';
+      msg.text = $scope.text;
+      $scope.messages.push(msg);
+      $scope.text = '';
+    }
   });
 
 roomControllers.
