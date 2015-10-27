@@ -38,9 +38,21 @@ roomControllers.
 roomControllers.
   controller('groupController', function ($scope) {
     $scope.users = [
-      {username: 'shubhu'},
-      {username: 'ij'},
-      {username: 'sims'}
+      {
+        username: 'shubhu',
+        since: '2 hours ago',
+        avatar: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg'
+      },
+      {
+        username: 'ij',
+        since: 'just now',
+        avatar: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg'
+      },
+      {
+        username: 'sims',
+        since: '3 days',
+        avatar: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_03.jpg'
+      }
     ];
 
     $scope.messages = [

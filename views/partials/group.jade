@@ -2,20 +2,26 @@ div.container#groupChat
   div.col-md-3
     div.panel.panel-primary
       div.panel-heading Online
-      div.panel-body
-        ul(ng-repeat="user in users")
-          li {{user.username}}
+      div.panel-body.users-list
+        ul.list
+          li.clearfix(ng-repeat="user in users")
+            img.img-circle.avatar(ng-src="{{user.avatar}}")
+            div.about
+              div.name {{user.username}}
+              div.status
+                i.fa.fa-circle.online {{user.since}}
   div.col-md-9
     div.panel.panel-primary
       div.panel-body
         div.message-wrapper(ng-repeat="message in messages")
           div.clearfix
-            img.profile-pic(ng-class="{right: message.username == 'shubhu', left: message.username != 'shubhu'}", ng-click="viewProfile(message.username)")
-            div.chat-bubble(ng-class="{right: message.username == 'shubhu', left: message.username != 'shubhu'}")
-              div.message {{message.text}}
+            div(ng-class="{right: message.username == 'shubhu', left: message.username != 'shubhu'}")
+              div.chat-bubble {{message.text}}
               div.message-detail
-                span.bold {{message.username}}
-                span.date {{message.time}}
+                img.profile-pic(ng-class="{right: message.username == 'shubhu', left: message.username != 'shubhu'}", ng-click="viewProfile(message.username)")
+                p
+                  span.bold @{{message.username}}
+                  span.date {{message.time}}
         div.panel-footer
           form.form-inline.chat-window(ng-submit="sendMessage()")
             div.form-group.chat-input-container
