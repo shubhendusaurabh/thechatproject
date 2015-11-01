@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+body {
+  background: #c5ddeb;
+  font: 14px/20px "Raleway", Arial, sans-serif;
+  padding: 70px 0;
+  color: #fff;
+}
+#groupChat {
+  margin: 0 auto;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+.people-list {
+  background: #444753;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.people-list .search {
+  padding: 20px;
+}
+.people-list input {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+  padding: 14px;
+  color: #fff;
+  background: #6a6c75;
+  width: 90%;
+  font-size: 14px;
+}
+.people-list .glyphicon-search {
+  position: relative;
+  left: -25px;
+}
+.people-list ul {
+  padding: 20px;
+  height: 770px;
+  list-style-type: none;
+}
+.people-list ul li {
+  padding-bottom: 20px;
+}
+.people-list img {
+  float: left;
+}
+.people-list .about {
+  float: left;
+  margin-top: 8px;
+}
+.people-list .about {
+  padding-left: 8px;
+}
+.people-list .status {
+  color: #92959e;
+}
+.chat {
+  background: #f2f5f8;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: #434651;
+}
+.chat .chat-header {
+  padding: 20px;
+  border-bottom: 2px solid #fff;
+}
+.chat .chat-header img {
+  float: left;
+}
+.chat .chat-header .chat-about {
+  float: left;
+  padding-left: 10px;
+  margin-top: 6px;
+}
+.chat .chat-header .chat-with {
+  font-weight: bold;
+  font-size: 16px;
+}
+.chat .chat-header .chat-num-messages {
+  color: #92959e;
+}
+.chat .chat-header .glyphicon-star {
+  float: right;
+  color: #d8dadf;
+  font-size: 20px;
+  margin-top: 12px;
+}
+.chat .chat-history {
+  padding: 30px 30px 20px;
+  border-bottom: 2px solid #fff;
+  overflow-y: scroll;
+  height: 575px;
+}
+.chat .chat-history ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.chat .chat-history .message-data {
+  margin-bottom: 15px;
+}
+.chat .chat-history .message-data-time {
+  color: #9b9da6;
+  padding-left: 6px;
+}
+.chat .chat-history .message {
+  color: #fff;
+  padding: 18px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  margin-bottom: 30px;
+  width: 90%;
+  position: relative;
+}
+.chat .chat-history .message::after {
+  bottom: 100%;
+  left: 93%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-bottom-color: #86bb71;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.chat .chat-history .my-message {
+  background: #86bb71;
+  float: right;
+}
+.chat .chat-history .other-message {
+  background: #94c2ed;
+}
+.chat .chat-history .other-message::after {
+  border-bottom-color: #94c2ed;
+  left: 7%;
+}
+.chat .chat-message {
+  padding: 30px;
+}
+.chat .chat-message textarea {
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Raleway", Arial, sans-serif;
+  margin-bottom: 10px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  resize: none;
+}
+.chat .chat-message .glyphicon-file,
+.chat .chat-message .glyphicon-film {
+  font-size: 16px;
+  color: #808080;
+  cursor: pointer;
+}
+.chat .chat-message button {
+  float: right;
+  color: #94c2ed;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: #f2f5f8;
+}
+.chat .chat-message button:hover {
+  color: #7db5e9;
+}
+.online,
+.offline,
+.me {
+  margin-right: 3px;
+  font-size: 10px;
+}
+.online {
+  color: #86bb71;
+}
+.offline {
+  color: #e38968;
+}
+.circle {
+  font-size: 16px;
+  color: #94c2ed;
+}
+.me {
+  color: #86bb71;
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.float-right {
+  float: right;
+}
+.clearfixafter {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}

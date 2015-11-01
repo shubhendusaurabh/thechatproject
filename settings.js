@@ -13,7 +13,7 @@ var env = process.env.NODE_ENV || "development";
 
 module.exports = function (app, configurations, express) {
   //var maxAge = 24 * 60 * 60 * 1000 * 28;
-  
+
   app.set("views", __dirname + "/views");
   app.set("view engine", "jade");
   app.use(favicon(__dirname + "/public/favicon.ico"));
@@ -28,10 +28,10 @@ module.exports = function (app, configurations, express) {
     app.use(errorhandler({ dumpExceptions: true, showStack: true }));
     app.locals.pretty = true;
   }
-  
+
   if (env === "production") {
     app.use(compression());
-    
+
     // 404 catch-all handler
     app.use(function (req, res, next) {
       /* jslint unused: false */
