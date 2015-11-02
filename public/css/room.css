@@ -1,0 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+.streams {
+  background: #94c2ed;
+  transition: width 1s;
+}
+.stream {
+  margin: 1% 0;
+  transition: width 1s;
+}

@@ -1,36 +1,10 @@
 div.row
-  div.col-md-9
-    div#streamsContainer
-      div.panel.panel-primary#myPublisherContainer
-        div.panel-heading You
-        div.panel-body
-          div.embed-responsive.embed-responsive-4by3
-            video.embed-responsive-item#remotePublisher(autoplay, poster="http://iphonewrd.com/img/loading.gif")
-            video.embed-responsive-item#myPublisher(autoplay, poster="http://iphonewrd.com/img/loading.gif")
-        div.panel-footer
-          ul.list-inline.text-right
-            li#roomLinkButton: button.btn.btn-primary(tooltip="Share Link"): span.glyphicon.glyphicon-link
-            li#chatButton: button.btn.btn-warning(tooltip="Text"): span.glyphicon.glyphicon-comment
-  div.col-md-3
-    div.panel.panel-primary.chat
-      div.panel-heading
-        span.glyphicon.glyphicon-comment Chat
-      div.panel-body
-        ul.list-group
-        each val in [1,2,3,4,5]
-          li.list-group-item
-            span.chat-img.pull-left
-              img.img-circle(alt="User Avatar", src="public/img/silhouette.png")
-            div.chat-body.clearfix
-              div.header
-                strong.primary-font
-                  small.pull-right.text-muted
-                    span.glyphicon.glyphicon-time
-              p Lorem Ipsum sit amet
-                span= val
-      div.panel-footer
-        div.input-group
-          input#btn-group.form-control.input-sm(type="text", placeholder="Type here")
-          span.input-group-btn
-            button.btn.btn-warning.btn-sm#btn-chat Send
-div(ng-include="'partials/textChat.jade'")
+  div.col-md-12.streams
+    div.row
+      div.col-sm-6
+        div.embed-responsive.embed-responsive-4by3.stream
+          video.embed-responsive-item.stream#my(autoplay, poster="/public/img/loader.gif")
+      div.col-sm-6
+        div.embed-responsive.embed-responsive-4by3.stream
+          video.embed-responsive-item.stream#my(autoplay, poster="/public/img/loader.gif")
+  div.chat.col-md-12(ng-include="'partials/textChat.jade'")

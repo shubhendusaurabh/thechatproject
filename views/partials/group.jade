@@ -13,27 +13,4 @@ div#groupChat
               i.circle &#9679; &nbsp;
               {{user.since}}
       
-    div.chat.col-md-9
-      div.chat-header.clearfix
-        img(src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg", alt="avatar")
-        
-        div.chat-about
-          div.chat-with Chat with {{ user }}
-          div.chat-num-messages already {{ messages.length }} messages
-        i.glyphicon.glyphicon-star
-      
-      div.chat-history
-        ul
-          li.clearfix(ng-repeat="message in messages")
-            div.message-data(ng-class="{'align-right': message.username == 'shubhu'}")
-              span.message-data-time {{message.time}}, Today &nbsp; &nbsp;
-              span.message-data-name 
-                | {{message.username}} 
-                i.circle(ng-class="{me: message.username == 'shubhu'}") &#9679;
-            div.message(ng-class="{'my-message': message.username == 'shubhu', 'other-message': message.username != 'shubhu'}") {{message.text}}
-    
-      div.chat-message.clearfix
-        textarea(elastic, ng-model="text", name="message-to-send", placeholder="Type your message", rows="3")#message-to-send
-        i.glyphicon.glyphicon-file
-        i.glyphicon.glyphicon-film
-        button.btn.btn-primary(ng-click="sendMessage()") Send
+    div.chat.col-md-9(ng-include="'partials/textChat.jade'")
