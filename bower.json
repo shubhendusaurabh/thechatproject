@@ -28,6 +28,7 @@
     "angular": "*",
     "angular-route": "*",
     "lodash": "*",
-    "angular-bootstrap": "*"
+    "angular-bootstrap": "*",
+    "webrtc-adapter": "~0.2.5"
   }
 }

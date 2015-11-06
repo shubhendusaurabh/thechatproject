@@ -6,17 +6,47 @@ var roomControllers = angular.module('myApp.controllers', []);
 roomControllers.
   controller('roomController', ['$scope', '$WS', 'Room', function ($scope, $WS, Room) {
     $scope.messages = [];
-    $scope.videoContainer = document.querySelector('#myPublisher');
+    $scope.constraints = window.constraints = {
+      audio: true,
+      video: true
+    };
 
-    requestUserMedia({
-      video: true,
-      audio: true
-    }).then(function(stream){
-      console.log(stream);
-      attachMediaStream($scope.videoContainer, stream);
-    }, function(e){
-      console.error('Error' + e);
-    });
+    $scope.enableVideo = true;
+    $scope.messages = [
+      {
+        text: 'Are we meeting today?',
+        username: 'shubhu',
+      },
+      {
+        text: 'Only if you say so!',
+        username: 'ij'
+      },
+      {
+        text: 'I know so',
+        username: 'shubhu'
+      },
+      {
+        text: 'I reckon so',
+        username: 'sims'
+      }
+    ];
+    $scope.attachMedia = function() {
+      navigator.mediaDevices.getUserMedia($scope.constraints).then(function(stream){
+        $scope.videoContainer = document.querySelector('#my');
+        attachMediaStream($scope.videoContainer, stream);
+      }).catch(function(error){
+        if (error.name === 'ConstraintNotSatisfiedError') {
+          errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
+              constraints.video.width.exact + ' px is not supported by your device.');
+        } else if (error.name === 'PermissionDeniedError') {
+          errorMsg('Permissions have not been granted to use your camera and ' +
+            'microphone, you need to allow the page access to your devices in ' +
+            'order for the demo to work.');
+        }
+        console.error(error);
+      });
+    }
+
     $WS.ready(function () {
       $WS.on('message', function (data) {
         console.log(data);

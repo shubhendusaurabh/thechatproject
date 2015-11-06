@@ -14,8 +14,11 @@ $dark = #444753
 body
   background #C5DDEB
   font 14px/20px "Raleway", Arial, sans-serif
-  padding 70px 0
+  padding 55px 0
   color white
+.container
+  margin 0
+  width 100%
 
 #groupChat
   margin 0 auto
@@ -25,7 +28,7 @@ body
   background $dark
   border-top-left-radius 5px
   border-bottom-left-radius 5px
-  
+
   .search
     padding 20px
 
@@ -70,15 +73,16 @@ body
   background #F2F5F8
   border-top-right-radius 5px
   border-bottom-right-radius 5px
-
   color #434651
 
   .chat-header
-    padding 20px
+    padding 10px
     border-bottom 2px solid white
 
     img
       float left
+      height 45px
+      width 45px
 
 
     .chat-about
@@ -102,13 +106,17 @@ body
       font-size 20px
       margin-top 12px
 
+  .text
+    border-left 3px solid #fff
 
+  .text, .video
+    padding 0
 
   .chat-history
     padding 30px 30px 20px
     border-bottom 2px solid white
     overflow-y scroll
-    height 575px
+    height 70vh
 
     ul
       list-style-type none
@@ -124,13 +132,15 @@ body
 
     .message
       color white
-      padding 18px 20px
+      padding 5px 10px
       line-height 26px
-      font-size 16px
+      font-size 14px
       border-radius 7px
-      margin-bottom 30px
+      margin-bottom 10px
       width 90%
       position relative
+      box-shadow 0 1px .5px rgba(0,0,0,.13)
+      transition .2s cubic-bezier(.31,.34,.3,.99)
 
       &::after
         bottom 100%
@@ -160,14 +170,13 @@ body
         left 7%
 
   .chat-message
-    padding 30px
+    padding 5px
+    display flex
 
     textarea
       width 100%
       border none
-      padding 10px 20px
-      font 14px/22px "Raleway", Arial, sans-serif
-      margin-bottom 10px
+      font 16px/30px "Raleway", Arial, sans-serif
       border-radius 5px
       resize none
 
@@ -177,14 +186,13 @@ body
       cursor pointer
 
     button
-      float right
       color $blue
       font-size 16px
-      text-transform uppercase
       border none
       cursor pointer
       font-weight bold
       background #F2F5F8
+      margin-left 1px
 
       &:hover
         color darken($blue, 7%)

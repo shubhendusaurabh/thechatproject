@@ -2,8 +2,12 @@
 body {
   background: #c5ddeb;
   font: 14px/20px "Raleway", Arial, sans-serif;
-  padding: 70px 0;
+  padding: 55px 0;
   color: #fff;
+}
+.container {
+  margin: 0;
+  width: 100%;
 }
 #groupChat {
   margin: 0 auto;
@@ -60,11 +64,13 @@ body {
   color: #434651;
 }
 .chat .chat-header {
-  padding: 20px;
+  padding: 10px;
   border-bottom: 2px solid #fff;
 }
 .chat .chat-header img {
   float: left;
+  height: 45px;
+  width: 45px;
 }
 .chat .chat-header .chat-about {
   float: left;
@@ -84,11 +90,18 @@ body {
   font-size: 20px;
   margin-top: 12px;
 }
+.chat .text {
+  border-left: 3px solid #fff;
+}
+.chat .text,
+.chat .video {
+  padding: 0;
+}
 .chat .chat-history {
   padding: 30px 30px 20px;
   border-bottom: 2px solid #fff;
   overflow-y: scroll;
-  height: 575px;
+  height: 70vh;
 }
 .chat .chat-history ul {
   list-style-type: none;
@@ -103,14 +116,21 @@ body {
 }
 .chat .chat-history .message {
   color: #fff;
-  padding: 18px 20px;
+  padding: 5px 10px;
   line-height: 26px;
-  font-size: 16px;
+  font-size: 14px;
   -webkit-border-radius: 7px;
   border-radius: 7px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   width: 90%;
   position: relative;
+  -webkit-box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  -webkit-transition: 0.2s cubic-bezier(0.31, 0.34, 0.3, 0.99);
+  -moz-transition: 0.2s cubic-bezier(0.31, 0.34, 0.3, 0.99);
+  -o-transition: 0.2s cubic-bezier(0.31, 0.34, 0.3, 0.99);
+  -ms-transition: 0.2s cubic-bezier(0.31, 0.34, 0.3, 0.99);
+  transition: 0.2s cubic-bezier(0.31, 0.34, 0.3, 0.99);
 }
 .chat .chat-history .message::after {
   bottom: 100%;
@@ -137,14 +157,18 @@ body {
   left: 7%;
 }
 .chat .chat-message {
-  padding: 30px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
 }
 .chat .chat-message textarea {
   width: 100%;
   border: none;
-  padding: 10px 20px;
-  font: 14px/22px "Raleway", Arial, sans-serif;
-  margin-bottom: 10px;
+  font: 16px/30px "Raleway", Arial, sans-serif;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   resize: none;
@@ -156,14 +180,13 @@ body {
   cursor: pointer;
 }
 .chat .chat-message button {
-  float: right;
   color: #94c2ed;
   font-size: 16px;
-  text-transform: uppercase;
   border: none;
   cursor: pointer;
   font-weight: bold;
   background: #f2f5f8;
+  margin-left: 1px;
 }
 .chat .chat-message button:hover {
   color: #7db5e9;

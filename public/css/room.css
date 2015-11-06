@@ -1,4 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway");
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+#app {
+  height: calc(100vh - 90px);
+  position: relative;
+  margin: 0 auto;
+  z-index: 2;
+  border-radius: 3px;
+  overflow: hidden;
+  transform-origin: center;
+  background-position: top left;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  box: shadow 0 1px 1px 0 rgba(0,0,0,0.06), 0 2px 5px 0 rgba(0,0,0,0.2);
+}
 .streams {
   background: #94c2ed;
   transition: width 1s;
@@ -6,4 +25,5 @@
 .stream {
   margin: 1% 0;
   transition: width 1s;
+  background: #000;
 }

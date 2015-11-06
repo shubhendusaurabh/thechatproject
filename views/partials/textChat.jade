@@ -1,27 +1,37 @@
-div.chat-header.clearfix
-  img(src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg", alt="avatar")
+div.row
+  div.chat-header.clearfix.col-md-12
+    img(src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg", alt="avatar")
+    
+    div.chat-about
+      div.chat-with Chat with {{ user }}
+      div.chat-num-messages already {{ messages.length }} messages
+    i.glyphicon.glyphicon-star
   
-  div.chat-about
-    div.chat-with Chat with {{ user }}
-    div.chat-num-messages already {{ messages.length }} messages
-  i.glyphicon.glyphicon-star
+  div.col-md-6.video(ng-if="enableVideo", ng-include="'/videoChat.html'", onload="attachMedia()")
 
-div.chat-history
-  ul
-    li.clearfix(ng-repeat="message in messages")
-      div.message-data(ng-class="{'align-right': message.username == 'shubhu'}")
-        span.message-data-time {{message.time}}, Today &nbsp; &nbsp;
-        span.message-data-name 
-          | {{message.username}} 
-          i.circle(ng-class="{me: message.username == 'shubhu'}") &#9679;
-      div.message(ng-class="{'my-message': message.username == 'shubhu', 'other-message': message.username != 'shubhu'}") {{message.text}}
+  div.col-md-6.text
+    div.chat-history
+      ul
+        li.clearfix(ng-repeat="message in messages")
+          div.message-data(ng-class="{'align-right': message.username == 'shubhu'}")
+            span.message-data-time {{message.time}}, Today &nbsp; &nbsp;
+            span.message-data-name 
+              | {{message.username}} 
+              i.circle(ng-class="{me: message.username == 'shubhu'}") &#9679;
+          div.message(ng-class="{'my-message': message.username == 'shubhu', 'other-message': message.username != 'shubhu'}") {{message.text}}
 
-div.chat-message.clearfix
-  textarea(elastic, ng-model="text", name="message-to-send", placeholder="Type your message", rows="3")#message-to-send
-  i.glyphicon.glyphicon-file
-  i.glyphicon.glyphicon-film
-  button.btn.btn-primary(ng-click="sendMessage()") Send
+    div.chat-message.clearfix
+      textarea(ng-model="text", name="message-to-send", placeholder="Type your message", rows="1")#message-to-send
+      button.btn.btn-primary(ng-click="sendMessage()") 
+        span.glyphicon.glyphicon-send
 
+script(id="/videoChat.html", type="text/ng-template")
+  div.col-sm-12
+    div.embed-responsive.embed-responsive-4by3.stream
+      video.embed-responsive-item#my(autoplay)
+  //- div.col-sm-12
+  //-   div.embed-responsive.embed-responsive-16by9.stream
+  //-     video.embed-responsive-item#others(autoplay)
 
 script(id="chattrBaseTpl", type="text/x-angular-template")
   div#chattr
