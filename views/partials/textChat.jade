@@ -9,7 +9,7 @@ div.row
   
   div.col-md-6.video(ng-if="enableVideo", ng-include="'/videoChat.html'", onload="attachMedia()")
 
-  div.col-md-6.text
+  div.col-md-12.text(ng-class="{'col-md-6': enableVideo}")
     div.chat-history
       ul
         li.clearfix(ng-repeat="message in messages")
@@ -21,17 +21,15 @@ div.row
           div.message(ng-class="{'my-message': message.username == 'shubhu', 'other-message': message.username != 'shubhu'}") {{message.text}}
 
     div.chat-message.clearfix
-      textarea(ng-model="text", name="message-to-send", placeholder="Type your message", rows="1")#message-to-send
+      textarea(ng-model="$parent.text", ng-required="true", ng-enter="sendMessage()" name="message-to-send", placeholder="Type your message", rows="1")#message-to-send
       button.btn.btn-primary(ng-click="sendMessage()") 
         span.glyphicon.glyphicon-send
 
 script(id="/videoChat.html", type="text/ng-template")
-  div.col-sm-12
-    div.embed-responsive.embed-responsive-4by3.stream
-      video.embed-responsive-item#my(autoplay)
-  //- div.col-sm-12
-  //-   div.embed-responsive.embed-responsive-16by9.stream
-  //-     video.embed-responsive-item#others(autoplay)
+  div.col-sm-6.col-md-12
+    div.embed-responsive.embed-responsive-4by3.streams
+      video.embed-responsive-item.loading#other(autoplay, ng-class='{loading: myLoading}')
+      video.embed-responsive-item.mini.loading#my(autoplay, ng-class="{loading: otherLoading}")
 
 script(id="chattrBaseTpl", type="text/x-angular-template")
   div#chattr

@@ -16,6 +16,27 @@ body
   font 14px/20px "Raleway", Arial, sans-serif
   padding 55px 0
   color white
+
+html, body
+  height 100%
+  margin 0
+
+.flex
+  display flex
+
+#groupChat
+  position relative
+  margin 0 auto
+  z-index 2
+  border-radius 3px
+  overflow hidden
+  transform-origin center
+  background-position top left
+  background-color #f7f7f7
+  display flex
+  flex-direction column
+  box shadow 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.2)
+
 .container
   margin 0
   width 100%
@@ -25,6 +46,7 @@ body
   border-radius 5px
 
 .people-list
+  align-items stretch
   background $dark
   border-top-left-radius 5px
   border-bottom-left-radius 5px
@@ -47,7 +69,6 @@ body
 
   ul
     padding 20px
-    height 770px
     list-style-type none
 
     li

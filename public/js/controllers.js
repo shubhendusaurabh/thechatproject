@@ -7,7 +7,7 @@ roomControllers.
   controller('roomController', ['$scope', '$WS', 'Room', function ($scope, $WS, Room) {
     $scope.messages = [];
     $scope.constraints = window.constraints = {
-      audio: true,
+      audio: false,
       video: true
     };
 
@@ -30,10 +30,22 @@ roomControllers.
         username: 'sims'
       }
     ];
+
+    $scope.sendMessage = function() {
+      if ($scope.text) {
+        var msg = {};
+        msg.username = 'shubhu';
+        msg.text = $scope.text;
+        $scope.messages.push(msg);
+        $scope.text = '';
+      }
+    };
+
     $scope.attachMedia = function() {
       navigator.mediaDevices.getUserMedia($scope.constraints).then(function(stream){
         $scope.videoContainer = document.querySelector('#my');
         attachMediaStream($scope.videoContainer, stream);
+        $scope.myLoading = false;
       }).catch(function(error){
         if (error.name === 'ConstraintNotSatisfiedError') {
           errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
@@ -105,6 +117,8 @@ roomControllers.
     ];
 
     $scope.sendMessage = function() {
+      console.log($scope.text);
+      if ($scope.text == '') return false;
       var msg = {};
       msg.username = 'shubhu';
       msg.text = $scope.text;

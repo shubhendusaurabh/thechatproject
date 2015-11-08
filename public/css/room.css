@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway");
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
 #app {
-  height: calc(100vh - 90px);
   position: relative;
   margin: 0 auto;
   z-index: 2;
@@ -21,9 +15,30 @@ body {
 .streams {
   background: #94c2ed;
   transition: width 1s;
-}
-.stream {
   margin: 1% 0;
   transition: width 1s;
   background: #000;
+  position: relative;
+}
+video {
+  transform: rotateY(180deg);
+  transition: all 2s;
+}
+video.loading {
+  background: url("/public/img/loader.gif") no-repeat 50%;
+}
+#my {
+  border: 1px solid #ccc;
+  top: 65%;
+  left: 65%;
+  max-height: 30%;
+  max-width: 30%;
+  opacity: 1;
+  position: absolute;
+  background-color: #000;
+}
+@media screen and (min-width: 960px) {
+  #app {
+    height: calc(100vh - 90px);
+  }
 }
