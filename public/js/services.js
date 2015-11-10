@@ -10,7 +10,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
     currentId,
     roomId,
     stream;
-  
+
   function getPeerConnection(id) {
     if (peerConnections[id]) {
       return peerConnections[id];
@@ -33,18 +33,18 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
     };
     return pc;
   }
-  
+
   function makeOffer(id) {
     var pc = getPeerConnection(id);
     pc.createOffer(function (sdp) {
       console.log('Creating an offer for', id);
       $WS.emit('msg', { by: currentId, to: id, sdp: sdp, type: 'sdp-offer' });
-      
+
     }, function (error) {
       console.log(error);
     }, { mandatory: {OfferToRecieveVideo: true, OfferToReceiveAudio: true }});
   }
-  
+
   function handleMessage(data) {
     var pc = getPeerConnection(data.by);
     switch (data.type) {
@@ -72,7 +72,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       break;
     }
   }
-  
+
   function addHandlers($WS) {
     $WS.on('peer.connected', function (params) {
       makeOffer(params.id);
@@ -87,7 +87,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       handleMessage(data);
     });
   }
-  
+
   var api = {
     joinRoom: function (room) {
       if (!connected) {
@@ -101,6 +101,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
     createRoom: function () {
       var d = $q.defer();
       $WS.emit('init', null, function (roomid, id) {
+        console.log(roomid);
         d.resolve(roomid);
         roomId = roomid;
         currentId = id;
@@ -112,10 +113,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       stream = s;
     }
   };
-  
-  //EventEmitter.call(api);
-  //Object.setPrototypeOf(api, EventEmitter.prototype);
-  
+
   addHandlers($WS);
   return api;
 });

@@ -37,8 +37,3 @@ video.loading {
   position: absolute;
   background-color: #000;
 }
-@media screen and (min-width: 960px) {
-  #app {
-    height: calc(100vh - 90px);
-  }
-}

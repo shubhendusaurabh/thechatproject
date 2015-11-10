@@ -8,7 +8,7 @@ module.exports = function (app) {
   };
 
   var getSortedChats = function (done) {
-    //TODO
+    
   };
 
   var emitChat = function (socket, chat) {
@@ -18,8 +18,6 @@ module.exports = function (app) {
       epoch_ms: Date.now(),
       fingerPrint: fingerPrint
     });
-
-    //zio.send([topic, statMsg])
 
     socket.emit('message', {chat: chat});
   };

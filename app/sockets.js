@@ -4,16 +4,41 @@ module.exports = function (server) {
   var users = [];
   var numUsers = 0;
   var connectedUsers = 0;
+  var rooms, currentRoom;
   var _ = require("underscore");
+  var uuid = require('node-uuid');
   var io = require("socket.io").listen(server);
 
   io.on("connection", function (socket) {
     connectedUsers += 1;
     var addedUser = false;
     users.push({"id": socket.id, "available": true});
-
+    console.log(users);
     socket.emit("connected", "Welcome to the chat server");
-    //logger.emit("newEvent", "userConnect", {"socket": socket.id});
+
+    socket.on('init', function(data, fn) {
+      currentRoom = (data || {}).room || uuid.v4();
+      console.log(rooms);
+      var room = rooms[currentRoom];
+      if (!data) {
+        rooms[currentRoom] = [socket];
+        id = userIds[currentRoom] = 0;
+        fn(currentRoom, id);
+        console.log('Room created, with #', currentRoom);
+      } else {
+        if (!room) {
+          return false;
+        }
+        userIds[currentRoom] += 1;
+        id = userIds[currentRoom];
+        fn(currentRoom, id);
+        room.forEach(function (s) {
+          s.emit('peer.connected', {id: id});
+        });
+        room[id] = socket;
+        console.log('Peer connected to room', currentRoom, 'with #', id);
+      }
+    });
 
     socket.on("new message", function (data) {
       socket.broadcast.emit("new message", {
@@ -64,7 +89,7 @@ module.exports = function (server) {
       if (addedUser) {
         delete users[socket.username];
         numUsers -= 1;
-
+        console.log(users);
         socket.broadcast.emit("user left", {
           username: socket.username,
           numUsers: numUsers

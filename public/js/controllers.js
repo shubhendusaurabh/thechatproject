@@ -43,6 +43,7 @@ roomControllers.
 
     $scope.attachMedia = function() {
       navigator.mediaDevices.getUserMedia($scope.constraints).then(function(stream){
+        window.stream = stream;
         $scope.videoContainer = document.querySelector('#my');
         attachMediaStream($scope.videoContainer, stream);
         $scope.myLoading = false;
@@ -68,6 +69,11 @@ roomControllers.
       $WS.on('connected', function (data) {
         console.log(data);
       });
+
+      Room.init(window.stream);
+      Room.createRoom().then(function (roomId){
+        $location.path('/room/' + roomId);
+      })
     });
 
   }]);
