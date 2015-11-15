@@ -5,6 +5,7 @@
 angular.module('myApp', [
   'ngRoute',
   'ui.bootstrap',
+  'myApp.factory',
   'myApp.controllers',
   'myApp.filters',
   'myApp.services',
@@ -13,8 +14,8 @@ angular.module('myApp', [
   config(function ($routeProvider, $locationProvider) {
     $routeProvider.
       when('/room/:roomId', {
-        templateUrl: '/partials/roomDetail',
-        controller: 'roomDetailController'
+        templateUrl: '/partials/room',
+        controller: 'roomController'
       }).
       when('/room', {
         templateUrl: '/partials/room',

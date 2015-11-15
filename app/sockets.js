@@ -4,50 +4,65 @@ module.exports = function (server) {
   var users = [];
   var numUsers = 0;
   var connectedUsers = 0;
-  var rooms, currentRoom;
+  var rooms = {}, userIds = {};
   var _ = require("underscore");
   var uuid = require('node-uuid');
   var io = require("socket.io").listen(server);
+  var words = ['shubhu', 'lol', 'man', 'jazz'];
 
   io.on("connection", function (socket) {
     connectedUsers += 1;
-    var addedUser = false;
+    var addedUser = false, currentRoom, id;
     users.push({"id": socket.id, "available": true});
-    console.log(users);
     socket.emit("connected", "Welcome to the chat server");
 
     socket.on('init', function(data, fn) {
-      currentRoom = (data || {}).room || uuid.v4();
-      console.log(rooms);
+      currentRoom = (data || {}).room || words[_.random(0, 3)];
+      console.log(currentRoom, socket.id);
+      socket.join(currentRoom);
       var room = rooms[currentRoom];
+      id = socket.id;
+
       if (!data) {
-        rooms[currentRoom] = [socket];
-        id = userIds[currentRoom] = 0;
+
         fn(currentRoom, id);
         console.log('Room created, with #', currentRoom);
       } else {
-        if (!room) {
-          return false;
-        }
-        userIds[currentRoom] += 1;
-        id = userIds[currentRoom];
+        // if (!room) {
+        //   return false;
+        // }
+        // userIds[currentRoom] += 1;
+        // id = userIds[currentRoom];
         fn(currentRoom, id);
-        room.forEach(function (s) {
-          s.emit('peer.connected', {id: id});
-        });
-        room[id] = socket;
+        io.in(currentRoom).emit('user.connected', {id: socket.id});
         console.log('Peer connected to room', currentRoom, 'with #', id);
       }
+
     });
 
-    socket.on("new message", function (data) {
-      socket.broadcast.emit("new message", {
+
+    socket.on('msg', function (data) {
+      console.log(data);
+      io.in(currentRoom).emit('msg', data);
+      // var to = parseInt(data.to, 10);
+      // if (rooms[currentRoom] && rooms[currentRoom][to]) {
+      //   console.log('redirecting to ', to, 'by', data.by);
+      //   rooms[currentRoom][to].emit('msg', data);
+      // } else {
+      //   console.warn('invalid user');
+      // }
+    });
+
+    // dead
+    socket.on("message.new", function (data) {
+      socket.broadcast.emit("message.new", {
         username: socket.username,
         message: data
       });
     });
 
-    socket.on("add user", function (username) {
+    // dead code
+    socket.on("user.connect", function (username) {
       var exists = false;
       exists = _.find(users, function (key, value) {
         console.log(value);
@@ -64,7 +79,7 @@ module.exports = function (server) {
         socket.emit("login", {
           numUsers: numUsers
         });
-        socket.broadcast.emit("user joined", {
+        socket.broadcast.emit("user.joined", {
           username: socket.username,
           numUsers: numUsers
         });
@@ -72,29 +87,38 @@ module.exports = function (server) {
       console.log(users);
     });
 
-    socket.on("typing", function () {
+    socket.on("user.typingStart", function () {
       socket.broadcast.emit("typing", {
         username: socket.username
       });
     });
 
-    socket.on("stop typing", function () {
+    socket.on("user.typingStop", function () {
       socket.broadcast.emit("stop typing", {
         username: socket.username
       });
     });
 
     socket.on("disconnect", function () {
-      connectedUsers -= 1;
-      if (addedUser) {
-        delete users[socket.username];
-        numUsers -= 1;
-        console.log(users);
-        socket.broadcast.emit("user left", {
-          username: socket.username,
-          numUsers: numUsers
-        });
+      if (!currentRoom || !rooms[currentRoom]) {
+        return false;
       }
+      delete rooms[currentRoom][rooms[currentRoom].indexOf(socket)];
+      rooms[currentRoom].forEach(function (socket) {
+        if (socket) {
+          socket.emit('user.disconnected', {id: id});
+        }
+      });
+      // connectedUsers -= 1;
+      // if (addedUser) {
+      //   delete users[socket.username];
+      //   numUsers -= 1;
+      //   console.log(users);
+      //   socket.broadcast.emit("user left", {
+      //     username: socket.username,
+      //     numUsers: numUsers
+      //   });
+      // }
     });
 
     socket.on("getNext", function () {

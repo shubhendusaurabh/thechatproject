@@ -1,9 +1,9 @@
 'use strict';
 
 angular
-  .module('myApp')
+  .module('myApp.factory', [])
   .factory('$WS', function ($rootScope) {
-  
+
     var self = this;
 
     self.ready = false;

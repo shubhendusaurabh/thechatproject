@@ -8,8 +8,12 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
   var iceConfig = { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }]},
     peerConnections = {},
     currentId,
+    remoteId,
+    connected,
     roomId,
-    stream;
+    stream,
+    localPeerConnection,
+    remotePeerConnection;
 
   function getPeerConnection(id) {
     if (peerConnections[id]) {
@@ -17,32 +21,34 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
     }
     var pc = new RTCPeerConnection(iceConfig);
     peerConnections[id] = pc;
-    pc.addStream(stream);
     pc.onicecandidate = function (event) {
-      $WS.emit('msg', {by: currentId, to: id, ice: event.candidate, type: ice });
+      console.log(currentId, id);
+      $WS.emit('msg', { by: currentId, to: id, ice: event.candidate, type: 'ice' });
     };
     pc.onaddstream = function (event) {
       console.log('Recieved new stream');
-      api.trigger('peer.stream', [{
+      $WS.emit('user.stream', {
         id: id,
         stream: event.stream
-      }]);
+      });
       if (!$rootScope.$$digest) {
         $rootScope.$apply();
       }
     };
+    if (stream) {
+      pc.addStream(stream);
+    }
     return pc;
   }
 
   function makeOffer(id) {
     var pc = getPeerConnection(id);
     pc.createOffer(function (sdp) {
-      console.log('Creating an offer for', id);
+      console.log('Creating an offer for', currentId, id);
       $WS.emit('msg', { by: currentId, to: id, sdp: sdp, type: 'sdp-offer' });
-
     }, function (error) {
-      console.log(error);
-    }, { mandatory: {OfferToRecieveVideo: true, OfferToReceiveAudio: true }});
+      console.error(error);
+    }, { mandatory: {OfferToRecieveVideo: true, OfferToReceiveAudio: false }});
   }
 
   function handleMessage(data) {
@@ -52,6 +58,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       pc.setRemoteDescription(new RTCSessionDescription(data.sdp), function () {
         console.log('Setting remote description by offer');
         pc.createAnswer(function (sdp) {
+          console.log(sdp);
           pc.setLocalDescription(sdp);
           $WS.emit('msg', { by: currentId, to: data.by, sdp: sdp, type: 'sdp-answer' });
         });
@@ -66,7 +73,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       break;
     case 'ice':
       if (data.ice) {
-        console.log('Adding ice candidates');
+        console.log('Adding ice candidates', data.ice);
         pc.addIceCandidate(new RTCIceCandidate(data.ice));
       }
       break;
@@ -74,11 +81,14 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
   }
 
   function addHandlers($WS) {
-    $WS.on('peer.connected', function (params) {
-      makeOffer(params.id);
+    $WS.on('user.connected', function (params) {
+      if (params.id !== currentId) {
+        console.log('connected user id is', params.id);
+        makeOffer(params.id);
+      }
     });
-    $WS.on('peer.disconnected', function (data) {
-      api.trigger('peer.disconnected', [data]);
+    $WS.on('user.disconnected', function (data) {
+      $WS.emit('user.disconnected', data);
       if (!$rootScope.$$digest) {
         $rootScope.$apply();
       }
@@ -101,11 +111,10 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
     createRoom: function () {
       var d = $q.defer();
       $WS.emit('init', null, function (roomid, id) {
-        console.log(roomid);
-        d.resolve(roomid);
         roomId = roomid;
         currentId = id;
         connected = true;
+        d.resolve(roomid);
       });
       return d.promise;
     },
@@ -119,22 +128,24 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
 });
 
 roomServices.
-  factory('videoStream', function ($q) {
+  factory('Stream', function ($q) {
   var stream;
+  window.constraints = {
+    audio: false,
+    video: true
+  };
   return {
     get: function () {
       if (stream) {
-        return $q.when(stream);
+        return $q.resolve(stream);
       } else {
         var d = $q.defer();
-        navigator.getUserMedia({
-          video: true,
-          audio: true
-        }, function (s) {
+        navigator.mediaDevices.getUserMedia(window.constraints).then(function(s){
           stream = s;
-          d.resolve(stream);
-        }, function (e) {
-          d.reject(e);
+          d.resolve(s);
+        }).catch(function(error){
+          console.error(error);
+          d.reject(error);
         });
         return d.promise;
       }

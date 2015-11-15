@@ -4,13 +4,9 @@
 var roomControllers = angular.module('myApp.controllers', []);
 
 roomControllers.
-  controller('roomController', ['$scope', '$WS', 'Room', function ($scope, $WS, Room) {
+  controller('roomController', ['$scope', '$location', '$routeParams', '$WS', 'Room', 'Stream', function ($scope, $location, $routeParams, $WS, Room, Stream) {
     $scope.messages = [];
-    $scope.constraints = window.constraints = {
-      audio: false,
-      video: true
-    };
-
+    $scope.roomId = $routeParams.roomId;
     $scope.enableVideo = true;
     $scope.messages = [
       {
@@ -42,25 +38,25 @@ roomControllers.
     };
 
     $scope.attachMedia = function() {
-      navigator.mediaDevices.getUserMedia($scope.constraints).then(function(stream){
-        window.stream = stream;
+      Stream.get().then(function(stream) {
         $scope.videoContainer = document.querySelector('#my');
-        attachMediaStream($scope.videoContainer, stream);
+        $scope.stream = stream;
+        attachMediaStream($scope.videoContainer, $scope.stream);
         $scope.myLoading = false;
-      }).catch(function(error){
-        if (error.name === 'ConstraintNotSatisfiedError') {
-          errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
-              constraints.video.width.exact + ' px is not supported by your device.');
-        } else if (error.name === 'PermissionDeniedError') {
-          errorMsg('Permissions have not been granted to use your camera and ' +
-            'microphone, you need to allow the page access to your devices in ' +
-            'order for the demo to work.');
-        }
-        console.error(error);
+        Room.init($scope.stream);
       });
     }
 
-    $WS.ready(function () {
+    if (!$scope.roomId) {
+      Room.createRoom().then(function (roomId){
+        $location.path('/room/' + roomId);
+      });
+    } else {
+      console.log('joining room');
+      Room.joinRoom($scope.roomId);
+    }
+
+    // $WS.ready(function () {
       $WS.on('message', function (data) {
         console.log(data);
         $scope.messages.push(data);
@@ -70,17 +66,8 @@ roomControllers.
         console.log(data);
       });
 
-      Room.init(window.stream);
-      Room.createRoom().then(function (roomId){
-        $location.path('/room/' + roomId);
-      })
-    });
+    // });
 
-  }]);
-
-roomControllers.
-  controller('roomDetailController', ['$scope', '$routeParams', '$WS', function ($scope, $routeParams, $WS) {
-    console.log($routeParams.roomId);
   }]);
 
 roomControllers.

@@ -8,7 +8,7 @@ module.exports = function (app) {
   };
 
   var getSortedChats = function (done) {
-    
+
   };
 
   var emitChat = function (socket, chat) {
@@ -50,13 +50,13 @@ module.exports = function (app) {
 
   app.get('/partials/:name', function (req, res) {
     var name = req.params.name;
-    console.log(name);
+    console.log('Partial for ', name);
     res.render('partials/' + name);
   });
 
   app.get('/room/:roomId', function (req, res) {
     var name = req.params.roomId;
-    console.log(name);
+    console.log('Room id from routes', name);
     res.render('index');
   })
 

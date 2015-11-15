@@ -17,7 +17,7 @@ module.exports = function (app, configurations, express) {
   app.set("views", __dirname + "/views");
   app.set("view engine", "jade");
   app.use(favicon(__dirname + "/public/favicon.ico"));
-  app.use(morgan("combined"));
+  app.use(morgan("dev"));
   app.use("/public", express.static(path.join(__dirname, "public")));
   app.use("/bower_components", express.static(path.join(__dirname, "bower_components")));
   app.use(bodyParser.json());
