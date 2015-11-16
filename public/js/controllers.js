@@ -4,7 +4,7 @@
 var roomControllers = angular.module('myApp.controllers', []);
 
 roomControllers.
-  controller('roomController', ['$scope', '$location', '$routeParams', '$WS', 'Room', 'Stream', function ($scope, $location, $routeParams, $WS, Room, Stream) {
+  controller('roomController', ['$scope', '$location', '$routeParams', '$anchorScroll', '$WS', 'Room', 'Stream', function ($scope, $location, $routeParams, $anchorScroll, $WS, Room, Stream) {
     $scope.messages = [];
     $scope.roomId = $routeParams.roomId;
     $scope.enableVideo = true;
@@ -71,7 +71,7 @@ roomControllers.
   }]);
 
 roomControllers.
-  controller('groupController', function ($scope) {
+  controller('groupController', function ($scope, $anchorScroll) {
     $scope.users = [
       {
         username: 'shubhu',

@@ -20,6 +20,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       return peerConnections[id];
     }
     var pc = new RTCPeerConnection(iceConfig);
+    console.log(pc);
     peerConnections[id] = pc;
     pc.onicecandidate = function (event) {
       console.log(currentId, id);
@@ -58,7 +59,6 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       pc.setRemoteDescription(new RTCSessionDescription(data.sdp), function () {
         console.log('Setting remote description by offer');
         pc.createAnswer(function (sdp) {
-          console.log(sdp);
           pc.setLocalDescription(sdp);
           $WS.emit('msg', { by: currentId, to: data.by, sdp: sdp, type: 'sdp-answer' });
         });
