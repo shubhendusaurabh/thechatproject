@@ -1,2 +1,10 @@
 div.row#app
   div.chat.col-md-12(ng-include="'/partials/textChat.jade'")
+
+  input#sendFile(type="file", name="sendToPeer")
+  div.progress
+    div.progress-bar.progress-bar-info.progress-bar-striped.active(role="progressbar", style="width: 60%")
+  div.well
+    ul.files
+      li(ng-repeat="file in fileList track by $index") 
+        p.text-danger {{file.name}}

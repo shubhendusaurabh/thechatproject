@@ -12,7 +12,7 @@ div.row
   div.col-md-12.text(ng-class="{'col-md-6': enableVideo}")
     div.chat-history
       ul
-        li.clearfix(ng-repeat="message in messages")
+        li.clearfix(ng-repeat="message in messages track by $index")
           div.message-data(ng-class="{'align-right': message.username == 'shubhu'}")
             span.message-data-time {{message.time}}, Today &nbsp; &nbsp;
             span.message-data-name 
@@ -28,7 +28,7 @@ div.row
 script(id="/videoChat.html", type="text/ng-template")
   div.col-sm-6.col-md-12
     div.embed-responsive.embed-responsive-4by3.streams
-      video.embed-responsive-item.loading#other(autoplay, ng-class='{loading: myLoading}')
+      div.embed-responsive-item.loading#others(autoplay, ng-class='{loading: myLoading}')
       video.embed-responsive-item.mini.loading#my(autoplay, ng-class="{loading: otherLoading}")
 
 script(id="chattrBaseTpl", type="text/x-angular-template")

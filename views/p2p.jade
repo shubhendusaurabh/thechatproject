@@ -12,13 +12,11 @@ block mainContent
     div.container
 
         video#localVideo(style='height:150px;')
-        div#remoteVideo(style='height:300px;')
+        div#remoteVideos()
 
         script.
             var socket = io();
 
-        script(src="http://simplewebrtc.com/latest.js")
+        script(src="http://simplewebrtc.com/latest-v2.js")
 
         script(src="/public/js/p2p.js")
-
-

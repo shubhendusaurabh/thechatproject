@@ -84,7 +84,7 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
     $WS.on('user.connected', function (params) {
       if (params.id !== currentId) {
         console.log('connected user id is', params.id);
-        makeOffer(params.id);
+        // makeOffer(params.id);
       }
     });
     $WS.on('user.disconnected', function (data) {
@@ -94,7 +94,8 @@ roomServices.service('Room', function ($rootScope, $q, $WS) {
       }
     });
     $WS.on('msg', function (data) {
-      handleMessage(data);
+      // handleMessage(data);
+      console.log(data);
     });
   }
 
