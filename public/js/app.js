@@ -4,7 +4,7 @@
 
 angular.module('myApp', [
   'ngRoute',
-  'ui.bootstrap',
+  'ngMaterial',
   'myApp.factory',
   'myApp.controllers',
   'myApp.filters',

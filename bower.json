@@ -28,7 +28,8 @@
     "angular": "*",
     "angular-route": "*",
     "lodash": "*",
-    "angular-bootstrap": "*",
-    "webrtc-adapter": "~0.2.5"
+    "webrtc-adapter": "~0.2.5",
+    "angular-material": "~1.0.0",
+    "SimpleWebRTC": "https://github.com/andyet/SimpleWebRTC.git#~1.18.0"
   }
 }
