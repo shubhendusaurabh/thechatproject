@@ -1,10 +1,9 @@
 FROM node:latest
 
-COPY package.json /src/package.json
-RUN cd /src; npm install
+RUN npm install bower gulp-cli nodemon -g
 
-COPY . /src
+RUN mkdir /src
+WORKDIR /src
 
-EXPOSE 8080
-
-CMD ["node", "/src/index.js"]
+COPY package.json /src/
+RUN . /src/

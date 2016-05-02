@@ -1,0 +1,11 @@
+.git
+.gitignore
+.openshift
+README.md
+docker-compose.yml
+node_modules
+todo.md
+LICENSE
+CONTRIBUTING.md
+CHANGELOG
+.tern-project
